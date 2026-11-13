@@ -50,3 +50,29 @@ if (form) {
     ok.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 }
+
+// 4. Novidades: a faixa anda sozinha e também pelos botões ‹ ›
+const rail = document.getElementById("rail");
+if (rail) {
+  const passo = () => (rail.querySelector(".card")?.offsetWidth || 300) + 20;
+  const mover = (dir) => {
+    const fim = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 5;
+    if (dir > 0 && fim) rail.scrollTo({ left: 0, behavior: "smooth" });
+    else rail.scrollBy({ left: dir * passo(), behavior: "smooth" });
+  };
+  document.querySelectorAll(".rail-btn").forEach((b) => b.addEventListener("click", () => mover(Number(b.dataset.dir))));
+  let pausado = false;
+  ["mouseenter", "touchstart", "focusin"].forEach((ev) => rail.addEventListener(ev, () => (pausado = true), { passive: true }));
+  ["mouseleave", "touchend", "focusout"].forEach((ev) => rail.addEventListener(ev, () => (pausado = false), { passive: true }));
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) setInterval(() => { if (!pausado) mover(1); }, 3200);
+}
+
+// 5. Botões de categoria na página inicial
+const chips = document.querySelectorAll(".chip");
+chips.forEach((chip) => {
+  chip.addEventListener("click", () => {
+    chips.forEach((c) => c.classList.toggle("ativo", c === chip));
+    const cat = chip.dataset.cat;
+    document.querySelectorAll(".cat-sec").forEach((sec) => (sec.hidden = cat !== "todos" && sec.dataset.cat !== cat));
+  });
+});

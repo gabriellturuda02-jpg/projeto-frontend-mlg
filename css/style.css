@@ -21,7 +21,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--preto); color: var(--texto); font: 16px/1.6 var(--fonte-texto); }
 img { max-width: 100%; display: block; }
 a { color: var(--dourado); }
-h1, h2, h3 { font-family: var(--fonte-titulo); line-height: 1.1; margin: 0 0 .5em; }
+h1, h2, h3, h4 { font-family: var(--fonte-titulo); line-height: 1.1; margin: 0 0 .5em; }
 .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
 .pular { position: absolute; left: -999px; }
 .pular:focus { left: 16px; top: 16px; z-index: 99; background: var(--dourado); color: #000; padding: 8px 14px; border-radius: 8px; }
@@ -79,20 +79,41 @@ h1, h2, h3 { font-family: var(--fonte-titulo); line-height: 1.1; margin: 0 0 .5e
 .cat h3 { font-size: 26px; margin: 0; }
 .cat p { margin: 4px 0 0; color: var(--dourado); font-weight: 700; }
 
-/* ---------- Cards de produto ---------- */
-.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
-.card { background: var(--preto-2); border: 1px solid var(--cinza); border-radius: var(--raio); overflow: hidden; display: flex; flex-direction: column; transition: transform .25s, border-color .25s; }
-.card:hover { transform: translateY(-4px); border-color: var(--dourado-esc); }
-.card figure { margin: 0; aspect-ratio: 1 / 1; background: #1d1d1d; }
-.card figure img { width: 100%; height: 100%; object-fit: cover; }
-.card-txt { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.card h2, .card h3 { font-size: 19px; margin: 0; }
-.card p { margin: 0; color: var(--texto-2); font-size: 14px; }
-.card .preco { margin-top: auto; color: var(--texto); font-size: 18px; }
+/* ---------- Área de produtos (fundo creme, igual ao catálogo) ---------- */
+.produtos { background: #f7f3e9; color: #171717; padding: 50px 0 70px; }
+.produtos .titulo, .produtos .sec-tit { color: #111; border-color: #111; }
+.produtos .sec-head a { color: #111; }
+.sec-tit { font-size: clamp(24px, 3vw, 34px); letter-spacing: .06em; text-transform: uppercase; padding-bottom: 10px; border-bottom: 2px solid #111; margin: 40px 0 22px; flex: 1; }
+.cat-sec[hidden] { display: none; }
+.chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.chip { border: 1px solid #d9cba3; background: #fff; color: #111; border-radius: 999px; padding: 10px 18px; font-weight: 800; font-size: 13px; cursor: pointer; text-transform: uppercase; letter-spacing: .03em; }
+.chip:hover { border-color: #111; }
+.chip.ativo { background: #111; color: var(--dourado); border-color: #111; }
+
+/* ---------- Cards de produto (todos do mesmo tamanho) ---------- */
+.grade { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-items: stretch; }
+.card { background: #0b0b0b; color: #fff; border: 1px solid #5d4a00; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 8px 22px #0002; transition: transform .3s, box-shadow .3s; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 18px 36px #0004; }
+.card figure { margin: 0; aspect-ratio: 1 / 1; background: #1a1a1a; overflow: hidden; }
+.card figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+.card:hover figure img { transform: scale(1.05); }
+.card-txt { padding: 16px 17px 18px; border-top: 2px solid var(--dourado); display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card-nome { font-size: 18px; margin: 0; line-height: 1.2; min-height: 2.4em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-desc { margin: 0; color: #c8c8c8; font-size: 13.5px; line-height: 1.45; min-height: 4.35em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card .preco { margin-top: auto; padding-top: 4px; color: #fff; font-size: 19px; }
 .card .preco strong { color: var(--dourado); }
-.card .preco span { font-size: 13px; color: var(--texto-2); }
+.card .preco span { font-size: 13px; color: #aaa; }
 .card .btn { align-self: flex-start; }
 .card[hidden] { display: none; }
+
+/* ---------- Novidades (faixa que anda sozinha) ---------- */
+.novidades { background: #0b0b0b; overflow: hidden; }
+.rail-nav { display: flex; gap: 8px; }
+.rail-btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #8c7100; background: #111; color: var(--dourado); font-size: 26px; line-height: 1; cursor: pointer; }
+.rail-btn:hover { background: var(--dourado); color: #000; }
+.rail { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 6px max(16px, calc((100% - 1200px) / 2)) 26px; }
+.rail::-webkit-scrollbar { display: none; }
+.card.nov { flex: 0 0 300px; scroll-snap-align: start; }
 
 /* ---------- Busca ---------- */
 .busca-box { padding-top: 40px; }
@@ -162,11 +183,21 @@ tbody tr:hover { background: #1c1c1c; }
 
 /* ---------- Responsivo ---------- */
 @media (max-width: 1100px) {
+  .grade { grid-template-columns: repeat(3, 1fr); }
   .menu-btn { display: block; }
   #menu { position: absolute; top: 76px; left: 0; right: 0; background: #000; border-bottom: 1px solid #ffd21a33; display: none; }
   #menu.aberto { display: block; }
   #menu ul { flex-direction: column; padding: 10px 16px 16px; }
   #menu a { font-size: 16px; padding: 12px 14px; }
+}
+@media (max-width: 800px) {
+  .grade { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-nome { font-size: 15px; }
+  .card-desc { font-size: 12.5px; }
+  .card-txt { padding: 12px; }
+  .card .preco { font-size: 16px; }
+  .card.nov { flex-basis: 72vw; }
+  .rail-nav { display: none; }
 }
 @media (max-width: 900px) {
   .grade-cat { grid-template-columns: 1fr 1fr; }
