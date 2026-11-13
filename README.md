@@ -14,6 +14,7 @@ Prof. Me. Gabriel Rosa Paz
 | Cauã Martins Aziago | 48100170 |
 | Gabriell dos Santos Turuda Barbosa | 47964901 |
 | Maria Clara Farias Coelho | 47968427 |
+| Kayk Santana | 47792426 |
 
 ## Objetivo
 
