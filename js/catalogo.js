@@ -43,6 +43,11 @@ function table(list,grouped){
 }
 let view='cards',shown=ALL;
 function setView(v){view=v;$('vCards').classList.toggle('on',v==='cards');$('vList').classList.toggle('on',v==='list');$('vCards').setAttribute('aria-pressed',v==='cards');$('vList').setAttribute('aria-pressed',v==='list');try{localStorage.setItem('mlg-vista',v)}catch(e){}render()}
+function inicio(list){
+  const dest=list.filter(p=>p.novo).slice(0,16);
+  const atalhos=CATS.filter(c=>ALL.some(p=>p.cat===c.id)).map(c=>`<button class="p-go" data-goto="${esc(c.id)}"><b>${esc(c.nome)}</b><span>${plural(ALL.filter(p=>p.cat===c.id).length,'produto','produtos')} →</span></button>`).join('');
+  return (dest.length?dest:list.slice(0,12)).map(card).join('')+`<div class="p-gos"><h3>Veja tudo por categoria</h3><div>${atalhos}</div></div>`;
+}
 function render(){
   const nq=norm(q).trim(),c=cur?cat(cur):null;
   let list=ALL.filter(p=>!cur||p.cat===cur);
@@ -51,14 +56,15 @@ function render(){
   if(so==='az')list=[...list].sort((a,b)=>a.nome.localeCompare(b.nome,'pt'));
   if(so==='menor'||so==='maior')list=[...list].sort((a,b)=>(a.preco==null)-(b.preco==null)||(so==='menor'?a.preco-b.preco:b.preco-a.preco));
   shown=list;
-  $('pTitle').textContent=nq?`Resultados para “${q.trim()}”`:(c?c.nome:'Todos os produtos');
-  $('pCount').textContent=list.length?plural(list.length,'produto','produtos'):'';
+  const destaque=!cur&&!nq&&view!=='list';
+  $('pTitle').textContent=nq?`Resultados para “${q.trim()}”`:(c?c.nome:(destaque?'Destaques':'Todos os produtos'));
+  $('pCount').textContent=destaque?'Escolha uma categoria para ver todos os produtos':(list.length?plural(list.length,'produto','produtos'):'');
   $('pGrid').style.display=view==='list'&&list.length?'block':'';
-  $('pGrid').innerHTML=list.length?(view==='list'?table(list,!cur&&!nq&&!so):(!cur&&!nq&&!so?CATS.filter(c=>list.some(p=>p.cat===c.id)).map(c=>`<h3 class="p-sec" data-sec="${esc(c.id)}">${esc(c.nome)}<span>${plural(list.filter(p=>p.cat===c.id).length,'produto','produtos')}</span></h3>`+list.filter(p=>p.cat===c.id).map(card).join('')).join(''):list.map(card).join(''))):`<div class="p-empty"><h4>${nq?'Nada encontrado':esc(c?c.nome:'Catálogo')+' em preparação'}</h4><p>${nq?'Tente outra palavra ou pergunte ao Assistente MLG.':'Estamos preparando esta seleção. Em breve os produtos aparecem aqui.'}</p></div>`;
+  $('pGrid').innerHTML=list.length?(view==='list'?table(list,!cur&&!nq&&!so):(!cur&&!nq?inicio(list):list.map(card).join(''))):`<div class="p-empty"><h4>${nq?'Nada encontrado':esc(c?c.nome:'Catálogo')+' em preparação'}</h4><p>${nq?'Tente outra palavra ou pergunte ao Assistente MLG.':'Estamos preparando esta seleção. Em breve os produtos aparecem aqui.'}</p></div>`;
   document.querySelectorAll('#chips .chip').forEach(b=>b.classList.toggle('on',b.dataset.cat===cur&&!nq));
 }
 function pick(id,scroll){cur=id||'';render();setHash(cur);if(scroll)$('produtos').scrollIntoView({behavior:'smooth'});const ch=document.querySelector(`#chips [data-cat="${cur}"]`);if(ch)ch.scrollIntoView({block:'nearest',inline:'center'})}
-$('pGrid').addEventListener('click',e=>{if(cartClick(e))return;const o=e.target.closest('[data-open]');if(o)openP(o.dataset.open)});
+$('pGrid').addEventListener('click',e=>{if(cartClick(e))return;const g=e.target.closest('[data-goto]');if(g){pick(g.dataset.goto,true);return}const o=e.target.closest('[data-open]');if(o)openP(o.dataset.open)});
 $('pGrid').addEventListener('keydown',e=>{if(e.key==='Enter'){const o=e.target.closest('[data-open]');if(o)openP(o.dataset.open)}});
 let st;$('topSearch').addEventListener('input',e=>{q=e.target.value;clearTimeout(st);st=setTimeout(()=>{cur='';render();if(q.trim())$('produtos').scrollIntoView({behavior:'smooth'})},280)});
 $('vCards').onclick=()=>setView('cards');$('vList').onclick=()=>setView('list');$('sort').onchange=render;
@@ -76,7 +82,7 @@ let novs=ALL.filter(p=>p.novo);
 if(novs.length){
   const one=novs.map(p=>`<article class="nov-card" data-open="${esc(p.id)}"><div class="nov-photo" style="--img:url('${img(p)}')"></div><div class="nov-copy"><div class="tag">NOVIDADE • ${esc(cat(p.cat).nome)}</div><h3>${esc(p.nome)}</h3><p>${esc(p.desc||p.emb||'')}</p><span class="nov-btn">VER NOVIDADE →</span></div></article>`).join('');
   let set=one;while((set.match(/nov-card/g)||[]).length<6)set+=one;
-  $('novRail').innerHTML=set+set;
+  $('novRail').innerHTML=set+set;$('novRail').style.animationDuration=Math.max(40,(set.match(/nov-card/g)||[]).length*7)+'s';
   $('novRail').addEventListener('click',e=>{const o=e.target.closest('[data-open]');if(o)openP(o.dataset.open)});
 }else{$('novidades').hidden=true;$('navNov').hidden=true}
 
