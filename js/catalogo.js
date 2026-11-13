@@ -60,7 +60,7 @@ function render(){
   $('pTitle').textContent=nq?`Resultados para “${q.trim()}”`:(c?c.nome:(destaque?'Destaques':'Todos os produtos'));
   $('pCount').textContent=destaque?'Escolha uma categoria para ver todos os produtos':(list.length?plural(list.length,'produto','produtos'):'');
   $('pGrid').style.display=view==='list'&&list.length?'block':'';
-  $('pGrid').innerHTML=list.length?(view==='list'?table(list,!cur&&!nq&&!so):(!cur&&!nq?inicio(list):list.map(card).join(''))):`<div class="p-empty"><h4>${nq?'Nada encontrado':esc(c?c.nome:'Catálogo')+' em preparação'}</h4><p>${nq?'Tente outra palavra ou pergunte ao Assistente MLG.':'Estamos preparando esta seleção. Em breve os produtos aparecem aqui.'}</p></div>`;
+  $('pGrid').innerHTML=list.length?(view==='list'?table(list,!cur&&!nq&&!so):(!cur&&!nq?inicio(list):list.map(card).join(''))):`<div class="p-empty"><h4>${nq?'Nada encontrado':esc(c?c.nome:'Catálogo')+' em preparação'}</h4><p>${nq?'Tente outra palavra ou escolha uma categoria.':'Estamos preparando esta seleção. Em breve os produtos aparecem aqui.'}</p></div>`;
   document.querySelectorAll('#chips .chip').forEach(b=>b.classList.toggle('on',b.dataset.cat===cur&&!nq));
 }
 function pick(id,scroll){cur=id||'';render();setHash(cur);if(scroll)$('produtos').scrollIntoView({behavior:'smooth'});const ch=document.querySelector(`#chips [data-cat="${cur}"]`);if(ch)ch.scrollIntoView({block:'nearest',inline:'center'})}

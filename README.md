@@ -29,7 +29,7 @@ Apresentar a Comércio MLG e seus produtos na internet e facilitar o contato e o
 
 | Página | Arquivo | Conteúdo |
 |---|---|---|
-| Início | `index.html` | Catálogo completo: "Quem somos", categorias, novidades, 63 produtos, busca, carrinho e pedido pelo WhatsApp |
+| Início | `index.html` | Catálogo completo: "Quem somos", categorias, novidades, produtos, busca, carrinho e pedido pelo WhatsApp |
 | Sobre | `sobre.html` | História da família, linha do tempo e valores |
 | Produtos | `produtos.html` | Todos os produtos com busca |
 | Queijos | `queijos.html` | Catálogo de queijos |
