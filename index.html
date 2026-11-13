@@ -1,785 +1,98 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Comércio MLG: queijos, frios, doces e bebidas desde 1999.">
-  <title>Início | Comércio MLG</title>
-  <link rel="icon" href="img/site/logo.png">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
-  <header class="topo">
-    <div class="topo-in">
-      <a class="marca" href="index.html"><img src="img/site/logo.png" alt="Logo Comércio MLG" width="64" height="64"><span>Comércio <b>MLG</b></span></a>
-      <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">☰</button>
-      <nav id="menu" aria-label="Menu principal"><ul><li><a href="index.html" aria-current="page">Início</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="produtos.html">Produtos</a></li><li><a href="queijos.html">Queijos</a></li><li><a href="embutidos.html">Embutidos</a></li><li><a href="paes-de-queijo.html">Pães de Queijo</a></li><li><a href="bebidas.html">Bebidas</a></li><li><a href="galeria.html">Galeria</a></li><li><a href="contato.html">Contato</a></li><li><a href="orcamento.html">Orçamento</a></li></ul></nav>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Comércio MLG | Catálogo</title>
+<meta property="og:type" content="website"><meta property="og:title" content="Comércio MLG | Catálogo"><meta property="og:description" content="Queijos, frios, doces e sabores de Minas. Desde 1999."><link rel="icon" href="img/180fc2cba8dd.png">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#080808">
+
+<link rel="stylesheet" href="css/catalogo.css">
+</head><body>
+<header class="top" id="top"><a href="#inicio"><img class="logo" id="logo" alt="Comércio MLG"></a><nav class="nav"><a href="#inicio">Início</a><a href="#categorias">Produtos</a><a href="#novidades" id="navNov">Novidades</a><a href="sobre.html">Sobre</a><a href="galeria.html">Galeria</a><a href="contato.html">Contato</a><a href="orcamento.html">Orçamento</a></nav><div class="search"><i>⌕</i><input id="topSearch" type="search" placeholder="Buscar produto, sabor ou categoria..." aria-label="Buscar produto"></div><button class="wa" id="topAi" aria-label="Assistente MLG">🤖<span class="wa-t"> ASSISTENTE MLG</span></button></header>
+
+<section class="hero" id="inicio"><div class="hero-bg" id="heroBg"></div><div class="hero-content"><div class="eyebrow">DESDE 1999 • SABORES DE MINAS</div><h1>Mais que produtos,<br><span>boas histórias.</span></h1><p>Queijos, frios, doces e sabores especiais para quem valoriza qualidade e parceria.</p><div class="quem"><h2>Quem somos</h2><p>O trabalho com queijos é uma tradição familiar, de avô para pai e de pai para filho, desde os tempos de feira livre nos anos 60, passando por boxes e quiosques de sacolões e mercadões. Em 1999 foi fundado o Comércio MLG (queijos, frios, doces, cachaças, vinhos e muito mais), trazendo todo o amor pelo que fazemos de maneira profissional e estruturada, com toda a experiência adquirida ao longo desses anos e o mesmo amor dos tempos de feira livre.</p></div><div class="actions"><button class="btn" onclick="document.getElementById('categorias').scrollIntoView({behavior:'smooth'})">EXPLORAR PRODUTOS →</button></div></div><div class="scroll">↓ ROLE PARA DESCOBRIR</div></section>
+
+<section class="section cream" id="categorias"><div class="head"><div><div class="eyebrow">NOSSO CATÁLOGO</div><h2>Escolha um sabor<br>e descubra.</h2></div><p>Toque em uma categoria para ver os produtos e os preços. Deslize para os lados para explorar todas.</p></div>
+<div class="rail-wrap"><button class="rail-btn prev" id="prev" aria-label="Anterior">‹</button><div class="rail" id="rail"></div><button class="rail-btn next" id="next" aria-label="Próximo">›</button></div>
+</section>
+
+<section class="produtos" id="produtos">
+  <div class="p-bar" id="chips"></div>
+  <div class="p-title"><div><h3 id="pTitle">Todos os produtos</h3><span id="pCount"></span></div>
+    <div class="p-tools">
+      <select class="sel" id="sort" aria-label="Ordenar"><option value="">Ordem do catálogo</option><option value="az">Nome (A–Z)</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option></select>
+      <div class="seg" role="group" aria-label="Visualização"><button id="vCards" class="on" aria-pressed="true">▦ Cards</button><button id="vList" aria-pressed="false">☰ Lista</button></div>
+      <a class="pdf" id="pdfBtn" href="#" target="_blank" rel="noopener" hidden>⬇ TABELA EM PDF</a>
+    </div></div>
+  <div class="notice" id="notice" hidden></div>
+  <div class="promos" id="promos" hidden></div>
+  <div class="p-grid" id="pGrid"></div>
+  <div class="p-foot"><span id="pDate"></span><span>Imagens ilustrativas. Preços sujeitos a alteração sem aviso prévio.</span></div>
+</section>
+
+<section class="motion-section" id="novidades">
+  <div class="motion-head">
+    <div><div class="eyebrow">NOVIDADES MLG</div><h2>Tem novidade?<br><span style="color:#c9a900">Ela aparece aqui.</span></h2></div>
+    <p>Lançamentos, produtos que acabaram de chegar e sabores em destaque. Toque em um card para ver os detalhes.</p>
+  </div>
+  <div class="auto-viewport"><div class="auto-rail" id="novRail"></div></div>
+  <div class="motion-note">Passe o mouse para pausar.</div>
+</section>
+
+<section class="section story" id="historia"><div class="storygrid"><div class="storypic" id="storyPic"></div><div class="storytext"><div class="eyebrow">COMÉRCIO MLG • DESDE 1999</div><h2>O sabor que<br><span>merece aparecer.</span></h2><p>Uma tradição de família que começou na feira livre, nos anos 60, e passou de avô para pai e de pai para filho. Hoje levamos queijos, frios, doces, cachaças, vinhos e sabores de Minas para lojas, mercados, padarias e para a mesa de quem gosta de comer bem.</p><div class="quote">“Mais que produtos, boas histórias.”</div></div></div></section>
+
+<section class="section" style="padding-top:0"><div class="ai"><div><h2>🤖 Assistente MLG</h2><p>Pergunte por um produto, sabor ou ocasião. O assistente encontra no catálogo, mostra o preço e leva você direto ao item.</p></div><button id="aiOpen">CONVERSAR AGORA →</button></div></section>
+
+<nav class="paginas" aria-label="Páginas do site"><h2>Navegue pelo site</h2><ul><li><a href="index.html">Início</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="produtos.html">Todos os produtos</a></li><li><a href="queijos.html">Queijos</a></li><li><a href="embutidos.html">Embutidos</a></li><li><a href="paes-de-queijo.html">Pães de Queijo</a></li><li><a href="bebidas.html">Bebidas</a></li><li><a href="galeria.html">Galeria</a></li><li><a href="contato.html">Contato</a></li><li><a href="orcamento.html">Orçamento</a></li></ul></nav>
+<footer class="footer" id="contato"></footer>
+
+<button class="cart-fab" id="cartFab" hidden>🛒 <span>Ver pedido</span> <b id="cartN">0</b> <span id="cartT"></span></button>
+<div class="cscrim" id="cscrim"></div>
+<aside class="cart" id="cart" aria-label="Seu pedido">
+  <div class="ct-head"><div><h2>Seu pedido</h2><small id="ctSub"></small></div><button class="x" id="ctClose" aria-label="Fechar">✕</button></div>
+  <div class="ct-body" id="ctBody">
+    <div id="ctItems"></div>
+    <div class="ct-empty" id="ctEmpty"><h3>Seu pedido está vazio</h3><p>Toque em “+ ADICIONAR” nos produtos para montar o pedido.</p><button class="btn" id="ctShop">VER PRODUTOS</button></div>
+    <div class="seller" id="ctSeller" hidden></div>
+    <form class="cform" id="ctForm" hidden autocomplete="on">
+      <label for="cNome">SEU NOME *<input id="cNome" name="name" autocomplete="name" required placeholder="Ex.: Maria Souza"></label>
+      <label for="cEnd">ENDEREÇO DE ENTREGA *<input id="cEnd" name="street-address" autocomplete="street-address" required placeholder="Rua, número e complemento"></label>
+      <div class="two"><label for="cCid">BAIRRO / CIDADE *<input id="cCid" required placeholder="Ex.: Mooca, São Paulo"></label>
+      <label for="cTel">TELEFONE<input id="cTel" name="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 90000-0000"></label></div>
+      <label for="cObs">OBSERVAÇÃO<textarea id="cObs" rows="2" placeholder="Ex.: entrega pela manhã, pagamento no Pix"></textarea></label>
+      <div class="cerr" id="cErr" hidden></div>
+    </form>
+  </div>
+  <div class="ct-foot" id="ctFoot" hidden>
+    <div class="ct-total"><span id="ctTotLbl">Total estimado</span><b id="ctTot">R$ 0,00</b></div>
+    <small id="ctNote"></small>
+    <button class="send" id="ctSend" type="button">💬 ENVIAR PEDIDO PELO WHATSAPP</button>
+    <button class="clear" id="ctClear" type="button">Esvaziar pedido</button>
+  </div>
+</aside>
+<button class="ai-fab" id="aiFab" aria-label="Abrir Assistente MLG"><span class="dot">🤖</span><span class="t">Assistente MLG</span></button>
+
+<div class="chat" id="chat" role="dialog" aria-label="Assistente MLG">
+  <div class="c-head"><div class="av">🤖</div><div><b>Assistente MLG</b><small id="aiMode">Tire dúvidas sobre o catálogo</small></div><button class="x" id="chatClose" aria-label="Fechar">✕</button></div>
+  <div class="c-body" id="cBody"></div>
+  <div class="sugs" id="sugs"></div>
+  <form class="c-form" id="cForm"><input id="cIn" placeholder="Ex.: tem queijo canastra?" autocomplete="off" aria-label="Sua pergunta"><button>Enviar</button></form>
+</div>
+
+<div class="pmodal" id="pmodal" role="dialog" aria-modal="true">
+  <div class="bg" data-close></div>
+  <button class="pnav l" id="pPrev" aria-label="Produto anterior">‹</button><button class="pnav r" id="pNext" aria-label="Próximo produto">›</button>
+  <div class="pcard">
+    <button class="x" data-close aria-label="Fechar">✕</button>
+    <div class="ph" id="mPh"></div>
+    <div class="info">
+      <small id="mCat"></small><h3 id="mName"></h3><p id="mDesc"></p>
+      <dl><dt>EMBALAGEM</dt><dd id="mPack"></dd><dt>PREÇO</dt><dd id="mPrice"></dd><dt>CÓDIGO</dt><dd id="mCode"></dd></dl>
+      <div class="acts" style="flex-direction:column;align-items:stretch"><div class="row" id="mCartRow" style="display:flex;gap:10px;align-items:center"><div class="stp" style="width:130px"><button type="button" id="mMinus">−</button><input id="mQty" type="number" min="1" value="1" inputmode="numeric" aria-label="Quantidade"><button type="button" id="mPlus">+</button></div><button class="btn" id="mAdd" style="flex:1">+ ADICIONAR AO PEDIDO</button></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" id="mAsk">PERGUNTAR AO ASSISTENTE</button><button class="btn ghost" id="mLink" style="background:#222;color:#eee">🔗 COPIAR LINK</button></div></div>
     </div>
-  </header>
-  <main id="conteudo">
-    <section class="hero">
-      <div class="wrap hero-txt">
-        <p class="eyebrow">Desde 1999 • Sabores de Minas</p>
-        <h1>Mais que produtos, <span>boas histórias.</span></h1>
-        <p class="lead">Queijos, frios, doces e sabores especiais para quem valoriza qualidade e parceria.</p>
-        <aside class="quem" aria-labelledby="quem-titulo">
-          <h2 id="quem-titulo">Quem somos</h2>
-          <p>O trabalho com queijos é uma tradição familiar, de avô para pai e de pai para filho, desde os tempos de feira livre nos anos 60, passando por boxes e quiosques de sacolões e mercadões. Em 1999 foi fundado o Comércio MLG (queijos, frios, doces, cachaças, vinhos e muito mais), trazendo todo o amor pelo que fazemos de maneira profissional e estruturada, com toda a experiência adquirida ao longo desses anos e o mesmo amor dos tempos de feira livre.</p>
-        </aside>
-        <div class="acoes"><a class="btn" href="produtos.html">Ver produtos</a><a class="btn btn-sec" href="sobre.html">Nossa história</a></div>
-      </div>
-    </section>
+  </div>
+</div>
 
-    <section class="secao wrap" aria-labelledby="cat-titulo">
-      <h2 id="cat-titulo" class="titulo">Nossas categorias</h2>
-      <div class="grade-cat">
-        <a class="cat" href="queijos.html" style="background-image:linear-gradient(0deg,#000d,#0002),url('img/site/cat-queijos.jpg')"><h3>Queijos</h3><p>34 produtos</p></a>
-        <a class="cat" href="embutidos.html" style="background-image:linear-gradient(0deg,#000d,#0002),url('img/site/cat-embutidos.jpg')"><h3>Embutidos</h3><p>10 produtos</p></a>
-        <a class="cat" href="paes-de-queijo.html" style="background-image:linear-gradient(0deg,#000d,#0002),url('img/site/cat-paes.jpg')"><h3>Pães de Queijo</h3><p>10 produtos</p></a>
-        <a class="cat" href="bebidas.html" style="background-image:linear-gradient(0deg,#000d,#0002),url('img/site/cat-bebidas.jpg')"><h3>Bebidas</h3><p>9 produtos</p></a>
-      </div>
-    </section>
-
-    <section class="secao novidades" aria-labelledby="nov-titulo">
-      <div class="wrap sec-head"><h2 id="nov-titulo" class="titulo">Novidades</h2>
-        <div class="rail-nav"><button type="button" class="rail-btn" data-dir="-1" aria-label="Anterior">‹</button><button type="button" class="rail-btn" data-dir="1" aria-label="Próximo">›</button></div></div>
-      <div class="rail" id="rail" tabindex="0" aria-label="Produtos em destaque">
-      <article class="card nov" data-busca="queijo minas padrão minas padrao cafe lanche tome canastra">
-        <figure><img src="img/produtos/queijo-minas-padrao.jpg" alt="Queijo Minas Padrão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Queijo Minas Padrão</h3>
-          <p class="card-desc">Massa macia e sabor suave, do jeito mineiro. Vai bem no café da manhã, no lanche e derretido na chapa. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="queijo do reino reino casca vermelha natal tabua petisco tome">
-        <figure><img src="img/produtos/queijo-do-reino.jpg" alt="Queijo do Reino" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Queijo do Reino</h3>
-          <p class="card-desc">O clássico da casca vermelha, de sabor marcante e massa firme. Perfeito para tábuas, petiscos e as festas de fim de ano. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo do Reino">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="trança de mussarela • tomé tranca mussarela tradicional defumada tomate seco temperada condimentada tome">
-        <figure><img src="img/produtos/trancas-tome.jpg" alt="Trança de Mussarela • Tomé" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Trança de Mussarela • Tomé</h3>
-          <p class="card-desc">Mussarela trançada, macia e saborosa, em 4 sabores: Tradicional, Defumada, com Tomate Seco e Temperada. Ótima para lanches, petiscos e tábuas. Diga o sabor na observação do pedido. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 49,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Trança de Mussarela • Tomé">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="trança de mussarela • mlg tranca mussarela tradicional defumada tomate seco mlg">
-        <figure><img src="img/produtos/trancas-mlg.jpg" alt="Trança de Mussarela • MLG" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Trança de Mussarela • MLG</h3>
-          <p class="card-desc">Trança de mussarela grande, da nossa marca, em 3 sabores: Defumada, Tradicional e Defumada com Tomate Seco. Perfeita para petiscos e tábuas. Diga o sabor na observação do pedido. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Trança de Mussarela • MLG">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="kit provoleto (3 provolones) kit provoleto provolone temperado vermelho defumado churrasco petisco mlg">
-        <figure><img src="img/produtos/kit-provoleto.jpg" alt="Kit Provoleto (3 provolones)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Kit Provoleto (3 provolones)</h3>
-          <p class="card-desc">Três provolones numa embalagem: Provolone Tradicional Temperado, Provolone Vermelho e Provolone Defumado. Perfeito para petiscos, churrasco e tábuas. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Kit Provoleto (3 provolones)">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="kit 4 queijos kit 4 queijos sortido tabua presente parmesao capa preta uruguaio reino condimentado mlg">
-        <figure><img src="img/produtos/kit-4-queijos.jpg" alt="Kit 4 Queijos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Kit 4 Queijos</h3>
-          <p class="card-desc">Quatro queijos numa peça só: Parmesão Tradicional, Parmesão Capa Preta Uruguaio, Queijo do Reino e Parmesão Condimentado. Perfeito para tábuas, presentes e para quem quer provar de tudo. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Kit 4 Queijos">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="calabresa curtida ao vinho • alho calabresa curtida vinho alho linguica churrasco petisco embutido">
-        <figure><img src="img/produtos/calabresa-vinho-alho.jpg" alt="Calabresa Curtida ao Vinho • Alho" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Calabresa Curtida ao Vinho • Alho</h3>
-          <p class="card-desc">Calabresa curtida no vinho, temperada com alho. Sabor marcante para churrasco, petiscos, pizza e acebolada.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Calabresa Curtida ao Vinho • Alho">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="licor de doce de leite • 3 lagos licor 3 lagos bebida doce de leite">
-        <figure><img src="img/produtos/licor-doce-de-leite.jpg" alt="Licor de Doce de Leite • 3 Lagos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Licor de Doce de Leite • 3 Lagos</h3>
-          <p class="card-desc">Cremoso, feito com o melhor doce de leite mineiro. Sirva bem gelado: ótimo puro, com gelo ou em sobremesas. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Licor de Doce de Leite • 3 Lagos">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="vinho tinto bordô suave • casa gilioli vinho casa gilioli serra gaucha bebida tinto bordo suave">
-        <figure><img src="img/produtos/vinho-bordo-suave.jpg" alt="Vinho Tinto Bordô Suave • Casa Gilioli" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Vinho Tinto Bordô Suave • Casa Gilioli</h3>
-          <p class="card-desc">Vinho de mesa tinto suave, docinho e fácil de beber. Ótimo para acompanhar massas, carnes e o almoço de domingo. Vinícola Gilioli, Serra Gaúcha. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 32,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Vinho Tinto Bordô Suave • Casa Gilioli">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="salame tipo italiano • vila caipira salame italiano curado tabua frios vila caipira embutido frios">
-        <figure><img src="img/produtos/salame-italiano.jpg" alt="Salame Tipo Italiano • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Salame Tipo Italiano • Vila Caipira</h3>
-          <p class="card-desc">Salame tipo italiano curado, de sabor intenso e marcante. Clássico da tábua de frios, perfeito com queijos e vinho. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Salame Tipo Italiano • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="pão de queijo tradicional premium pao de queijo congelado fornalha mineira tradicional premium">
-        <figure><img src="img/produtos/pao-queijo-tradicional.jpg" alt="Pão de Queijo Tradicional Premium" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Pão de Queijo Tradicional Premium</h3>
-          <p class="card-desc">O legítimo pão de queijo mineiro, crocante por fora e macio por dentro. É só tirar do freezer e assar. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Tradicional Premium">Quero este</a>
-        </div>
-      </article>
-      <article class="card nov" data-busca="pão de queijo recheado com requeijão pao de queijo congelado fornalha mineira recheado requeijao">
-        <figure><img src="img/produtos/pao-queijo-requeijao.jpg" alt="Pão de Queijo Recheado com Requeijão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h3 class="card-nome">Pão de Queijo Recheado com Requeijão</h3>
-          <p class="card-desc">Pão de queijo recheado com requeijão cremoso, que derrete por dentro. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Recheado com Requeijão">Quero este</a>
-        </div>
-      </article>
-      </div>
-    </section>
-
-    <section class="produtos" aria-labelledby="todos-titulo">
-      <div class="wrap">
-        <h2 id="todos-titulo" class="titulo">Nossos produtos</h2>
-        <div class="chips" role="group" aria-label="Filtrar por categoria">
-          <button type="button" class="chip ativo" data-cat="todos">Todos (63)</button>
-          <button type="button" class="chip" data-cat="queijos">Queijos (34)</button>
-          <button type="button" class="chip" data-cat="embutidos">Embutidos (10)</button>
-          <button type="button" class="chip" data-cat="paes">Pães de Queijo (10)</button>
-          <button type="button" class="chip" data-cat="bebidas">Bebidas (9)</button>
-        </div>
-        <section class="cat-sec" data-cat="queijos" aria-labelledby="h-queijos">
-          <div class="sec-head"><h3 id="h-queijos" class="sec-tit">Queijos</h3><a href="queijos.html">Ver página →</a></div>
-          <div class="grade">
-      <article class="card" data-busca="queijo minas padrão minas padrao cafe lanche tome canastra">
-        <figure><img src="img/produtos/queijo-minas-padrao.jpg" alt="Queijo Minas Padrão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Minas Padrão</h4>
-          <p class="card-desc">Massa macia e sabor suave, do jeito mineiro. Vai bem no café da manhã, no lanche e derretido na chapa. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo minas padrão • dourado minas padrao dourado sif">
-        <figure><img src="img/produtos/minas-padrao-dourado.jpg" alt="Queijo Minas Padrão • Dourado" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Minas Padrão • Dourado</h4>
-          <p class="card-desc">Minas Padrão de massa macia e sabor suave, com inspeção federal (SIF). Vai bem no café da manhã, no lanche e derretido na chapa. Laticínios Dourado.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão • Dourado">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo minas padrão flor da serra (aprox. 1 kg) minas padrao flor da serra 1kg grande">
-        <figure><img src="img/produtos/minas-flor-da-serra-1kg.jpg" alt="Queijo Minas Padrão Flor da Serra (aprox. 1 kg)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Minas Padrão Flor da Serra (aprox. 1 kg)</h4>
-          <p class="card-desc">Minas Padrão de massa macia e sabor suave, na peça grande. Vai bem no café da manhã, no lanche e derretido na chapa. Flor da Serra Laticínios.</p>
-          <p class="preco"><strong>R$ 79,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão Flor da Serra (aprox. 1 kg)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo minas padrão flor da serra (aprox. 700 a 800 g) minas padrao flor da serra 800g media">
-        <figure><img src="img/produtos/minas-flor-da-serra-800g.jpg" alt="Queijo Minas Padrão Flor da Serra (aprox. 700 a 800 g)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Minas Padrão Flor da Serra (aprox. 700 a 800 g)</h4>
-          <p class="card-desc">Minas Padrão de massa macia e sabor suave, na peça média. Vai bem no café da manhã, no lanche e derretido na chapa. Flor da Serra Laticínios.</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão Flor da Serra (aprox. 700 a 800 g)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="meia lua flor da serra (aprox. 400 a 500 g) meia lua minas padrao flor da serra metade 500g">
-        <figure><img src="img/produtos/meia-lua-flor-da-serra.jpg" alt="Meia Lua Flor da Serra (aprox. 400 a 500 g)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Meia Lua Flor da Serra (aprox. 400 a 500 g)</h4>
-          <p class="card-desc">Metade da peça do Minas Padrão Flor da Serra, na medida para o dia a dia. Massa macia e sabor suave. Flor da Serra Laticínios.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Meia Lua Flor da Serra (aprox. 400 a 500 g)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo minas padrão • beirão minas padrao beirao fracionado meia lua">
-        <figure><img src="img/produtos/minas-padrao-beirao.jpg" alt="Queijo Minas Padrão • Beirão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Minas Padrão • Beirão</h4>
-          <p class="card-desc">Minas Padrão fracionado, de massa macia e sabor suave. Prático para o dia a dia: café da manhã, lanche e chapa. Queijos Beirão.</p>
-          <p class="preco"><strong>R$ 44,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão • Beirão">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="meia lua cremoso suíço meia lua cremoso suico fatiar lanche tabua">
-        <figure><img src="img/produtos/meia-lua-cremoso-suico.jpg" alt="Meia Lua Cremoso Suíço" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Meia Lua Cremoso Suíço</h4>
-          <p class="card-desc">Queijo de massa cremosa e macia, com sabor suave e amanteigado. Fatia fácil e derrete muito bem: ótimo no lanche, no misto quente e na tábua.</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Meia Lua Cremoso Suíço">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo minas padrão zero lactose minas padrao zero lactose sem lactose vila caipira">
-        <figure><img src="img/produtos/queijo-minas-padrao-zero-lactose.jpg" alt="Queijo Minas Padrão Zero Lactose" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Minas Padrão Zero Lactose</h4>
-          <p class="card-desc">O sabor suave do Minas Padrão, sem lactose. Medalha de prata na Expo Queijo Brasil 2022. Vila Caipira, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 79,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Minas Padrão Zero Lactose">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo frescal light artesanal frescal light leve branco cafe canastra original">
-        <figure><img src="img/produtos/queijo-frescal-light.jpg" alt="Queijo Frescal Light Artesanal" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Frescal Light Artesanal</h4>
-          <p class="card-desc">Leve, macio e fresquinho. Ideal para o café da manhã, lanches e para quem procura uma opção mais leve. Canastra Original, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 32,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Frescal Light Artesanal">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo frescal canastra frescal minas frescal branco cafe canastra">
-        <figure><img src="img/produtos/queijo-frescal-canastra.jpg" alt="Queijo Frescal Canastra" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Frescal Canastra</h4>
-          <p class="card-desc">Frescal fresquinho, branquinho e macio, de sabor suave e levemente salgado. Ótimo no café da manhã, com doce, na salada e no lanche. Produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 46,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Frescal Canastra">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo meia cura caipira (inteiro) meia cura caipira inteiro curado tabua">
-        <figure><img src="img/produtos/meia-cura-caipira-inteiro.jpg" alt="Queijo Meia Cura Caipira (inteiro)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Meia Cura Caipira (inteiro)</h4>
-          <p class="card-desc">Queijo meia cura de sabor marcante e massa firme, feito do jeito caipira. Ótimo para tábuas, petiscos e para comer com café ou doce.</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Meia Cura Caipira (inteiro)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo meia cura caipira (metade) meia cura caipira metade curado tabua">
-        <figure><img src="img/produtos/meia-cura-caipira-metade.jpg" alt="Queijo Meia Cura Caipira (metade)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Meia Cura Caipira (metade)</h4>
-          <p class="card-desc">Metade da peça do meia cura caipira, de sabor marcante e massa firme. Na medida para o dia a dia, para tábuas e petiscos.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Meia Cura Caipira (metade)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo do reino reino casca vermelha natal tabua petisco tome">
-        <figure><img src="img/produtos/queijo-do-reino.jpg" alt="Queijo do Reino" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo do Reino</h4>
-          <p class="card-desc">O clássico da casca vermelha, de sabor marcante e massa firme. Perfeito para tábuas, petiscos e as festas de fim de ano. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo do Reino">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo parmesão • tomé parmesao tradicional ralado tome">
-        <figure><img src="img/produtos/queijo-parmesao-tome.jpg" alt="Queijo Parmesão • Tomé" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Parmesão • Tomé</h4>
-          <p class="card-desc">Parmesão de sabor marcante e massa firme, que esfarela no ponto certo. Ótimo ralado na massa, na pizza e no risoto ou em lascas na tábua. Laticínios Tomé.</p>
-          <p class="preco"><strong>R$ 79,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Parmesão • Tomé">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo pizza (parmesão condimentado) pizza parmesao condimentado temperado chimichurri tome">
-        <figure><img src="img/produtos/queijo-pizza-parmesao-condimentado.jpg" alt="Queijo Pizza (Parmesão Condimentado)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Pizza (Parmesão Condimentado)</h4>
-          <p class="card-desc">Temperado com chimichurri e pimentões. Derrete bem e deixa a pizza, o lanche e o petisco com sabor extra. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Pizza (Parmesão Condimentado)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo parmesão capa preta parmesao capa preta curado ralado tome">
-        <figure><img src="img/produtos/queijo-parmesao-capa-preta.jpg" alt="Queijo Parmesão Capa Preta" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Parmesão Capa Preta</h4>
-          <p class="card-desc">Parmesão curado com a tradicional capa preta, de sabor intenso e massa firme. Ótimo ralado na massa e na pizza ou em lascas na tábua. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 79,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Parmesão Capa Preta">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="trança de mussarela • tomé tranca mussarela tradicional defumada tomate seco temperada condimentada tome">
-        <figure><img src="img/produtos/trancas-tome.jpg" alt="Trança de Mussarela • Tomé" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Trança de Mussarela • Tomé</h4>
-          <p class="card-desc">Mussarela trançada, macia e saborosa, em 4 sabores: Tradicional, Defumada, com Tomate Seco e Temperada. Ótima para lanches, petiscos e tábuas. Diga o sabor na observação do pedido. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 49,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Trança de Mussarela • Tomé">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="trança de mussarela • mlg tranca mussarela tradicional defumada tomate seco mlg">
-        <figure><img src="img/produtos/trancas-mlg.jpg" alt="Trança de Mussarela • MLG" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Trança de Mussarela • MLG</h4>
-          <p class="card-desc">Trança de mussarela grande, da nossa marca, em 3 sabores: Defumada, Tradicional e Defumada com Tomate Seco. Perfeita para petiscos e tábuas. Diga o sabor na observação do pedido. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Trança de Mussarela • MLG">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="mussarela palito • tomé (550 a 600 g) palito palitinho mussarela empanar petisco tradicional condimentado tome 600g">
-        <figure><img src="img/produtos/palito-tome-600g.jpg" alt="Mussarela Palito • Tomé (550 a 600 g)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Mussarela Palito • Tomé (550 a 600 g)</h4>
-          <p class="card-desc">Palitinhos de mussarela prontos para empanar, fritar ou assar. Ideais para petiscos, festas e lanchonetes. Sabores: Tradicional e Condimentado. Diga o sabor na observação do pedido. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 54,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Mussarela Palito • Tomé (550 a 600 g)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="mussarela palito • mlg (550 a 600 g) palito palitinho mussarela empanar petisco tradicional condimentado mlg 600g">
-        <figure><img src="img/produtos/palito-mlg-600g.jpg" alt="Mussarela Palito • MLG (550 a 600 g)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Mussarela Palito • MLG (550 a 600 g)</h4>
-          <p class="card-desc">Palitinhos de mussarela prontos para empanar, fritar ou assar. Ideais para petiscos, festas e lanchonetes. Sabores: Tradicional e Condimentado. Diga o sabor na observação do pedido. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 54,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Mussarela Palito • MLG (550 a 600 g)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="mussarela palito • mlg (300 g) palito palitinho mussarela empanar petisco tradicional condimentado mlg 300g">
-        <figure><img src="img/produtos/palito-mlg-300g.jpg" alt="Mussarela Palito • MLG (300 g)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Mussarela Palito • MLG (300 g)</h4>
-          <p class="card-desc">Pacote menor de palitinhos de mussarela, na medida para a família. Ótimos para empanar, fritar ou assar. Sabores: Tradicional e Condimentado. Diga o sabor na observação do pedido. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 34,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Mussarela Palito • MLG (300 g)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo mussarela • crioulo mussarela peca pizza lanche fatiar crioulo latco">
-        <figure><img src="img/produtos/mussarela-crioulo.jpg" alt="Queijo Mussarela • Crioulo" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Mussarela • Crioulo</h4>
-          <p class="card-desc">Mussarela em peça, de massa macia que derrete e fia do jeito certo. Ideal para pizza, lanches, misto quente e para fatiar. Crioulo (Latco), desde 1966.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Mussarela • Crioulo">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo mussarela de búfala • vila caipira mussarela bufala peca pizza salada vila caipira">
-        <figure><img src="img/produtos/mussarela-bufala-vila-caipira.jpg" alt="Queijo Mussarela de Búfala • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Mussarela de Búfala • Vila Caipira</h4>
-          <p class="card-desc">Mussarela feita com leite de búfala, mais leve e de sabor delicado. Fica ótima na pizza, na salada, no lanche e ralada. Vila Caipira, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 79,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Mussarela de Búfala • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="requeijão • mlg requeijao barra culinario cremoso pizza recheio mlg">
-        <figure><img src="img/produtos/requeijao-mlg.jpg" alt="Requeijão • MLG" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Requeijão • MLG</h4>
-          <p class="card-desc">Requeijão em barra, cremoso e de sabor suave, da nossa marca. Derrete muito bem: perfeito para lanches, pizzas, salgados e recheios. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Requeijão • MLG">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="requeijão • tomé requeijao barra culinario cremoso pizza recheio tome">
-        <figure><img src="img/produtos/requeijao-tome.jpg" alt="Requeijão • Tomé" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Requeijão • Tomé</h4>
-          <p class="card-desc">Requeijão em barra, cremoso e de sabor suave. Derrete muito bem: perfeito para lanches, pizzas, salgados e recheios. Laticínios Tomé, Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Requeijão • Tomé">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo trufado (recheado com requeijão) trufado recheado requeijao mussarela pote tradicional">
-        <figure><img src="img/produtos/queijo-trufado.jpg" alt="Queijo Trufado (Recheado com Requeijão)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo Trufado (Recheado com Requeijão)</h4>
-          <p class="card-desc">Mussarela macia com recheio de requeijão cremoso por dentro. Uma delícia para comer puro, no lanche ou levar ao forno.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo Trufado (Recheado com Requeijão)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo de coalho • dourado coalho peca grelhar churrasco chapa petisco dourado">
-        <figure><img src="img/produtos/queijo-coalho-dourado.jpg" alt="Queijo de Coalho • Dourado" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo de Coalho • Dourado</h4>
-          <p class="card-desc">Queijo de coalho em peça, firme e saboroso, ideal para grelhar: doura por fora sem derreter. Perfeito para churrasco, chapa e petiscos. Laticínios Dourado, desde 1991.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo de Coalho • Dourado">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="queijo de coalho em espeto • dourado coalho espeto palito espetinho churrasco grelhar dourado">
-        <figure><img src="img/produtos/coalho-espeto-dourado.jpg" alt="Queijo de Coalho em Espeto • Dourado" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Queijo de Coalho em Espeto • Dourado</h4>
-          <p class="card-desc">Espetinhos de queijo coalho prontos para a churrasqueira ou a frigideira. É só grelhar e servir. Laticínios Dourado, desde 1991.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Queijo de Coalho em Espeto • Dourado">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="provolone fresco defumado • tomé provolone fresco defumado artesanal petisco churrasco tome">
-        <figure><img src="img/produtos/provolone-defumado-tome.jpg" alt="Provolone Fresco Defumado • Tomé" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Provolone Fresco Defumado • Tomé</h4>
-          <p class="card-desc">Provolone artesanal com defumação suave e casquinha dourada. Ótimo fatiado, em petiscos, na tábua e no churrasco. Laticínios Tomé.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Provolone Fresco Defumado • Tomé">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="provolone recheado com lombo defumado • tomé provolone condimentado recheado lombo defumado petisco tabua tome">
-        <figure><img src="img/produtos/provolone-recheado-lombo-tome.jpg" alt="Provolone Recheado com Lombo Defumado • Tomé" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Provolone Recheado com Lombo Defumado • Tomé</h4>
-          <p class="card-desc">Provolone condimentado com ervas e recheado com lombo defumado. Cada fatia é um petisco pronto: perfeito para tábuas, festas e churrasco. Laticínios Tomé.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Provolone Recheado com Lombo Defumado • Tomé">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="kit provoleto (3 provolones) kit provoleto provolone temperado vermelho defumado churrasco petisco mlg">
-        <figure><img src="img/produtos/kit-provoleto.jpg" alt="Kit Provoleto (3 provolones)" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Kit Provoleto (3 provolones)</h4>
-          <p class="card-desc">Três provolones numa embalagem: Provolone Tradicional Temperado, Provolone Vermelho e Provolone Defumado. Perfeito para petiscos, churrasco e tábuas. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Kit Provoleto (3 provolones)">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="kit 4 queijos kit 4 queijos sortido tabua presente parmesao capa preta uruguaio reino condimentado mlg">
-        <figure><img src="img/produtos/kit-4-queijos.jpg" alt="Kit 4 Queijos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Kit 4 Queijos</h4>
-          <p class="card-desc">Quatro queijos numa peça só: Parmesão Tradicional, Parmesão Capa Preta Uruguaio, Queijo do Reino e Parmesão Condimentado. Perfeito para tábuas, presentes e para quem quer provar de tudo. Marca MLG, produzido na Serra da Canastra (MG).</p>
-          <p class="preco"><strong>R$ 69,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Kit 4 Queijos">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="kit romeu e julieta • grande romeu julieta goiabada queijo kit grande doce sobremesa">
-        <figure><img src="img/produtos/kit-romeu-julieta-grande.jpg" alt="Kit Romeu e Julieta • Grande" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Kit Romeu e Julieta • Grande</h4>
-          <p class="card-desc">Goiabada cascão e queijo juntos na mesma embalagem, a combinação mineira mais famosa. Perfeito para sobremesa, café da tarde e para presentear.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ kit</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Kit Romeu e Julieta • Grande">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="kit romeu e julieta • pequeno romeu julieta goiabada queijo kit pequeno doce sobremesa">
-        <figure><img src="img/produtos/kit-romeu-julieta-pequeno.jpg" alt="Kit Romeu e Julieta • Pequeno" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Kit Romeu e Julieta • Pequeno</h4>
-          <p class="card-desc">Goiabada cascão e queijo juntos na mesma embalagem, a combinação mineira mais famosa. Perfeito para sobremesa, café da tarde e para presentear.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ kit</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Kit Romeu e Julieta • Pequeno">Quero este</a>
-        </div>
-      </article>
-          </div>
-        </section>
-        <section class="cat-sec" data-cat="embutidos" aria-labelledby="h-embutidos">
-          <div class="sec-head"><h3 id="h-embutidos" class="sec-tit">Embutidos</h3><a href="embutidos.html">Ver página →</a></div>
-          <div class="grade">
-      <article class="card" data-busca="calabresa curtida ao vinho • alho calabresa curtida vinho alho linguica churrasco petisco embutido">
-        <figure><img src="img/produtos/calabresa-vinho-alho.jpg" alt="Calabresa Curtida ao Vinho • Alho" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Calabresa Curtida ao Vinho • Alho</h4>
-          <p class="card-desc">Calabresa curtida no vinho, temperada com alho. Sabor marcante para churrasco, petiscos, pizza e acebolada.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Calabresa Curtida ao Vinho • Alho">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="calabresa curtida ao vinho • apimentada calabresa curtida vinho apimentada pimenta linguica churrasco petisco embutido">
-        <figure><img src="img/produtos/calabresa-vinho-apimentada.jpg" alt="Calabresa Curtida ao Vinho • Apimentada" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Calabresa Curtida ao Vinho • Apimentada</h4>
-          <p class="card-desc">Calabresa curtida no vinho, com pimenta para quem gosta de um toque picante. Ótima no churrasco, em petiscos, na pizza e acebolada.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Calabresa Curtida ao Vinho • Apimentada">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="salaminho nobre defumado • vila caipira salaminho salame defumado vila caipira embutido frios">
-        <figure><img src="img/produtos/salaminho-defumado.jpg" alt="Salaminho Nobre Defumado • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Salaminho Nobre Defumado • Vila Caipira</h4>
-          <p class="card-desc">Salaminho defumado naturalmente, de sabor marcante. Ótimo fatiado na tábua, com limão, em petiscos e na pizza. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Salaminho Nobre Defumado • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="salaminho nobre defumado com pimenta biquinho • vila caipira salaminho salame defumado pimenta biquinho vila caipira embutido frios">
-        <figure><img src="img/produtos/salaminho-pimenta-biquinho.jpg" alt="Salaminho Nobre Defumado com Pimenta Biquinho • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Salaminho Nobre Defumado com Pimenta Biquinho • Vila Caipira</h4>
-          <p class="card-desc">Salaminho defumado naturalmente com pedacinhos de pimenta biquinho, que dá sabor sem arder muito. Perfeito para petiscos e tábuas. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Salaminho Nobre Defumado com Pimenta Biquinho • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="lombo nobre defumado com pimenta biquinho • vila caipira lombo nobre defumado pimenta biquinho embutido vila caipira embutido frios">
-        <figure><img src="img/produtos/lombo-nobre-pimenta-biquinho.jpg" alt="Lombo Nobre Defumado com Pimenta Biquinho • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Lombo Nobre Defumado com Pimenta Biquinho • Vila Caipira</h4>
-          <p class="card-desc">Embutido de lombo defumado naturalmente, com pimenta biquinho. Fatiado fica ótimo em tábuas, petiscos e lanches. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Lombo Nobre Defumado com Pimenta Biquinho • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="salame de frango defumado com provolone • vila caipira salame frango defumado provolone vila caipira embutido frios">
-        <figure><img src="img/produtos/salame-frango-provolone.jpg" alt="Salame de Frango Defumado com Provolone • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Salame de Frango Defumado com Provolone • Vila Caipira</h4>
-          <p class="card-desc">Salame de frango defumado naturalmente, com cubinhos de provolone. Mais leve e muito saboroso para tábuas e petiscos. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Salame de Frango Defumado com Provolone • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="salame tipo italiano • vila caipira salame italiano curado tabua frios vila caipira embutido frios">
-        <figure><img src="img/produtos/salame-italiano.jpg" alt="Salame Tipo Italiano • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Salame Tipo Italiano • Vila Caipira</h4>
-          <p class="card-desc">Salame tipo italiano curado, de sabor intenso e marcante. Clássico da tábua de frios, perfeito com queijos e vinho. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Salame Tipo Italiano • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="lombinho defumado • vila caipira lombinho lombo suino defumado vila caipira embutido frios">
-        <figure><img src="img/produtos/lombinho-defumado.jpg" alt="Lombinho Defumado • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Lombinho Defumado • Vila Caipira</h4>
-          <p class="card-desc">Lombo suíno defumado, macio e suculento. Fatiado fica ótimo em lanches, tábuas, petiscos e no café da manhã. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Lombinho Defumado • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="lombinho defumado com limão • vila caipira lombinho lombo suino defumado limao vila caipira embutido frios">
-        <figure><img src="img/produtos/lombinho-defumado-limao.jpg" alt="Lombinho Defumado com Limão • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Lombinho Defumado com Limão • Vila Caipira</h4>
-          <p class="card-desc">Lombo suíno defumado com um toque de limão, que deixa o sabor mais fresco. Ótimo fatiado em tábuas e petiscos. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Lombinho Defumado com Limão • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="lombinho defumado com pimenta malagueta • vila caipira lombinho lombo suino defumado pimenta malagueta vila caipira embutido frios">
-        <figure><img src="img/produtos/lombinho-defumado-malagueta.jpg" alt="Lombinho Defumado com Pimenta Malagueta • Vila Caipira" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Lombinho Defumado com Pimenta Malagueta • Vila Caipira</h4>
-          <p class="card-desc">Lombo suíno defumado com pimenta malagueta, para quem gosta de um toque picante. Perfeito em petiscos e tábuas. Vila Caipira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ peça</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Lombinho Defumado com Pimenta Malagueta • Vila Caipira">Quero este</a>
-        </div>
-      </article>
-          </div>
-        </section>
-        <section class="cat-sec" data-cat="paes" aria-labelledby="h-paes">
-          <div class="sec-head"><h3 id="h-paes" class="sec-tit">Pães de Queijo</h3><a href="paes-de-queijo.html">Ver página →</a></div>
-          <div class="grade">
-      <article class="card" data-busca="pão de queijo tradicional premium pao de queijo congelado fornalha mineira tradicional premium">
-        <figure><img src="img/produtos/pao-queijo-tradicional.jpg" alt="Pão de Queijo Tradicional Premium" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Tradicional Premium</h4>
-          <p class="card-desc">O legítimo pão de queijo mineiro, crocante por fora e macio por dentro. É só tirar do freezer e assar. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 39,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Tradicional Premium">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="pão de queijo muito + queijo pao de queijo congelado fornalha mineira muito mais queijo">
-        <figure><img src="img/produtos/pao-queijo-muito-queijo.jpg" alt="Pão de Queijo Muito + Queijo" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Muito + Queijo</h4>
-          <p class="card-desc">Pão de queijo com ainda mais queijo na massa: mais sabor e aquele puxa-puxa irresistível. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 49,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Muito + Queijo">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="palito de parmesão pao de queijo congelado fornalha mineira palito parmesao">
-        <figure><img src="img/produtos/palito-parmesao.jpg" alt="Palito de Parmesão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Palito de Parmesão</h4>
-          <p class="card-desc">Palitos de massa de pão de queijo cobertos com parmesão, que ficam douradinhos e crocantes. Ótimos para petiscos e café. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 49,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Palito de Parmesão">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="chipa pao de queijo congelado fornalha mineira chipa">
-        <figure><img src="img/produtos/chipa.jpg" alt="Chipa" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Chipa</h4>
-          <p class="card-desc">Chipa de queijo no formato tradicional, crocante por fora e macia por dentro. Perfeita para o café da tarde. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 49,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Chipa">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="pão de queijo recheado com requeijão pao de queijo congelado fornalha mineira recheado requeijao">
-        <figure><img src="img/produtos/pao-queijo-requeijao.jpg" alt="Pão de Queijo Recheado com Requeijão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Recheado com Requeijão</h4>
-          <p class="card-desc">Pão de queijo recheado com requeijão cremoso, que derrete por dentro. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Recheado com Requeijão">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="pão de queijo recheado com frango e requeijão pao de queijo congelado fornalha mineira recheado frango requeijao">
-        <figure><img src="img/produtos/pao-queijo-frango-requeijao.jpg" alt="Pão de Queijo Recheado com Frango e Requeijão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Recheado com Frango e Requeijão</h4>
-          <p class="card-desc">Pão de queijo recheado com frango desfiado e requeijão cremoso. Um lanche completo. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Recheado com Frango e Requeijão">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="pão de queijo recheado com calabresa e requeijão pao de queijo congelado fornalha mineira recheado calabresa requeijao">
-        <figure><img src="img/produtos/pao-queijo-calabresa-requeijao.jpg" alt="Pão de Queijo Recheado com Calabresa e Requeijão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Recheado com Calabresa e Requeijão</h4>
-          <p class="card-desc">Pão de queijo recheado com calabresa e requeijão cremoso. Sabor marcante para lanches e festas. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Recheado com Calabresa e Requeijão">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="pão de queijo goiabinha pao de queijo congelado fornalha mineira recheado goiabada goiabinha doce">
-        <figure><img src="img/produtos/pao-queijo-goiabinha.jpg" alt="Pão de Queijo Goiabinha" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Goiabinha</h4>
-          <p class="card-desc">Pão de queijo recheado com goiabada: o romeu e julieta em versão pão de queijo. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Goiabinha">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="pão de queijo recheado com doce de leite pao de queijo congelado fornalha mineira recheado doce de leite">
-        <figure><img src="img/produtos/pao-queijo-doce-de-leite.jpg" alt="Pão de Queijo Recheado com Doce de Leite" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Pão de Queijo Recheado com Doce de Leite</h4>
-          <p class="card-desc">Pão de queijo recheado com doce de leite cremoso. Uma delícia para o café da tarde. Congelado, pronto para assar. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Pão de Queijo Recheado com Doce de Leite">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="mini kibe de carne com requeijão pao de queijo congelado fornalha mineira mini kibe carne requeijao salgado festa">
-        <figure><img src="img/produtos/mini-kibe-requeijao.jpg" alt="Mini Kibe de Carne com Requeijão" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Mini Kibe de Carne com Requeijão</h4>
-          <p class="card-desc">Mini kibes de carne recheados com requeijão cremoso, prontos para assar ou fritar. Perfeitos para festas e petiscos. Congelado. Fornalha Mineira.</p>
-          <p class="preco"><strong>R$ 49,00</strong> <span>/ pacote</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Mini Kibe de Carne com Requeijão">Quero este</a>
-        </div>
-      </article>
-          </div>
-        </section>
-        <section class="cat-sec" data-cat="bebidas" aria-labelledby="h-bebidas">
-          <div class="sec-head"><h3 id="h-bebidas" class="sec-tit">Bebidas</h3><a href="bebidas.html">Ver página →</a></div>
-          <div class="grade">
-      <article class="card" data-busca="licor de marula • 3 lagos licor 3 lagos bebida marula">
-        <figure><img src="img/produtos/licor-marula.jpg" alt="Licor de Marula • 3 Lagos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Licor de Marula • 3 Lagos</h4>
-          <p class="card-desc">Cremoso e aveludado, com o sabor exótico e adocicado da marula. Sirva bem gelado: ótimo puro, com gelo ou em sobremesas. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Licor de Marula • 3 Lagos">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="licor de jabuticaba • 3 lagos licor 3 lagos bebida jabuticaba fruta">
-        <figure><img src="img/produtos/licor-jabuticaba.jpg" alt="Licor de Jabuticaba • 3 Lagos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Licor de Jabuticaba • 3 Lagos</h4>
-          <p class="card-desc">Cremoso, com o sabor doce e frutado da jabuticaba mineira. Sirva bem gelado: ótimo puro, com gelo ou em sobremesas. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Licor de Jabuticaba • 3 Lagos">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="licor de doce de leite • 3 lagos licor 3 lagos bebida doce de leite">
-        <figure><img src="img/produtos/licor-doce-de-leite.jpg" alt="Licor de Doce de Leite • 3 Lagos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Licor de Doce de Leite • 3 Lagos</h4>
-          <p class="card-desc">Cremoso, feito com o melhor doce de leite mineiro. Sirva bem gelado: ótimo puro, com gelo ou em sobremesas. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Licor de Doce de Leite • 3 Lagos">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="licor de milho • 3 lagos licor 3 lagos bebida milho festa junina">
-        <figure><img src="img/produtos/licor-milho.jpg" alt="Licor de Milho • 3 Lagos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Licor de Milho • 3 Lagos</h4>
-          <p class="card-desc">Cremoso, com o sabor doce do milho verde, uma delícia tipicamente brasileira. Sirva bem gelado: ótimo puro, com gelo ou em sobremesas. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Licor de Milho • 3 Lagos">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="licor de paçoca • 3 lagos licor 3 lagos bebida pacoca amendoim">
-        <figure><img src="img/produtos/licor-pacoca.jpg" alt="Licor de Paçoca • 3 Lagos" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Licor de Paçoca • 3 Lagos</h4>
-          <p class="card-desc">Cremoso, com o sabor de paçoca de amendoim que todo mundo ama. Sirva bem gelado: ótimo puro, com gelo ou em sobremesas. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 59,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Licor de Paçoca • 3 Lagos">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="vinho tinto bordô suave • casa gilioli vinho casa gilioli serra gaucha bebida tinto bordo suave">
-        <figure><img src="img/produtos/vinho-bordo-suave.jpg" alt="Vinho Tinto Bordô Suave • Casa Gilioli" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Vinho Tinto Bordô Suave • Casa Gilioli</h4>
-          <p class="card-desc">Vinho de mesa tinto suave, docinho e fácil de beber. Ótimo para acompanhar massas, carnes e o almoço de domingo. Vinícola Gilioli, Serra Gaúcha. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 32,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Vinho Tinto Bordô Suave • Casa Gilioli">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="vinho tinto bordô demi-sec • casa gilioli vinho casa gilioli serra gaucha bebida tinto bordo demi sec meio seco">
-        <figure><img src="img/produtos/vinho-bordo-demi-sec.jpg" alt="Vinho Tinto Bordô Demi-Sec • Casa Gilioli" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Vinho Tinto Bordô Demi-Sec • Casa Gilioli</h4>
-          <p class="card-desc">Vinho de mesa tinto demi-sec, no meio do caminho entre o suave e o seco. Combina com carnes, queijos e massas. Vinícola Gilioli, Serra Gaúcha. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 32,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Vinho Tinto Bordô Demi-Sec • Casa Gilioli">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="vinho tinto bordô seco • casa gilioli vinho casa gilioli serra gaucha bebida tinto bordo seco">
-        <figure><img src="img/produtos/vinho-bordo-seco.jpg" alt="Vinho Tinto Bordô Seco • Casa Gilioli" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Vinho Tinto Bordô Seco • Casa Gilioli</h4>
-          <p class="card-desc">Vinho de mesa tinto seco, encorpado e de sabor marcante. Perfeito com carnes, queijos curados e churrasco. Vinícola Gilioli, Serra Gaúcha. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 32,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Vinho Tinto Bordô Seco • Casa Gilioli">Quero este</a>
-        </div>
-      </article>
-      <article class="card" data-busca="vinho branco niágara suave • casa gilioli vinho casa gilioli serra gaucha bebida branco niagara suave">
-        <figure><img src="img/produtos/vinho-niagara-suave.jpg" alt="Vinho Branco Niágara Suave • Casa Gilioli" loading="lazy" width="900" height="900"></figure>
-        <div class="card-txt">
-          <h4 class="card-nome">Vinho Branco Niágara Suave • Casa Gilioli</h4>
-          <p class="card-desc">Vinho de mesa branco suave, feito com uva Niágara, leve e aromático. Sirva gelado com peixes, saladas e petiscos. Vinícola Gilioli, Serra Gaúcha. Venda proibida para menores de 18 anos.</p>
-          <p class="preco"><strong>R$ 32,00</strong> <span>/ garrafa</span></p>
-          <a class="btn btn-sm" href="contato.html?produto=Vinho Branco Niágara Suave • Casa Gilioli">Quero este</a>
-        </div>
-      </article>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <section class="faixa">
-      <div class="wrap faixa-in">
-        <div><h2>Faça seu pedido</h2><p>Escolha os produtos, mande uma mensagem pelo formulário e receba o atendimento da nossa equipe.</p></div>
-        <a class="btn" href="contato.html">Fale conosco</a>
-      </div>
-    </section>
-  </main>
-  <footer class="rodape">
-    <div class="rodape-in">
-      <section>
-        <h2>Comércio MLG</h2>
-        <p>Queijos, frios, doces, cachaças, vinhos e muito mais. Tradição de família desde a feira livre, empresa desde 1999.</p>
-      </section>
-      <nav aria-label="Links do rodapé">
-        <h2>Navegue</h2>
-        <ul><li><a href="index.html" aria-current="page">Início</a></li><li><a href="sobre.html">Sobre</a></li><li><a href="produtos.html">Produtos</a></li><li><a href="queijos.html">Queijos</a></li><li><a href="embutidos.html">Embutidos</a></li><li><a href="paes-de-queijo.html">Pães de Queijo</a></li><li><a href="bebidas.html">Bebidas</a></li><li><a href="galeria.html">Galeria</a></li><li><a href="contato.html">Contato</a></li><li><a href="orcamento.html">Orçamento</a></li></ul>
-      </nav>
-      <section>
-        <h2>Atendimento</h2>
-        <address>São Paulo - SP<br>Segunda a sábado<br><a href="contato.html">Fale conosco</a></address>
-      </section>
-    </div>
-    <p class="copy">© 2026 Comércio MLG • Projeto acadêmico de Desenvolvimento Front-End para Web (UNICID)</p>
-  </footer>
-  <script src="js/script.js"></script>
-</body>
-</html>
+<div class="copied" id="copied" role="status"></div>
+<script src="js/dados-catalogo.js"></script>
+<script src="js/catalogo.js"></script>
+</body></html>
