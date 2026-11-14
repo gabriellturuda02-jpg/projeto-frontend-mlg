@@ -22,3 +22,11 @@
 - Revisei os textos do site: Quem somos, história e descrições dos produtos
 
 ---
+## 14/11/2026
+**Participantes:** Miguel Marcos 
+
+**O que foi feito:**
+
+- Utilizamos CSS3 para trabalhar na aparência do site, definindo cores, fontes, tamanhos, espaçamentos e posicionamento dos
+  ___
+
