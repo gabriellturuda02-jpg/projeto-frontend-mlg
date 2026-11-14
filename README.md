@@ -58,9 +58,11 @@ projeto-frontend-mlg/
 ├── img/produtos/   img/site/
 ├── assets/video/
 └── docs/
-    ├── planejamento.md
-    ├── diario-de-bordo.md
-    └── relatorio-dominio-hospedagem.md
+    ├── 01_Apresentacao_do_Projeto.pdf
+    ├── 02_Planejamento.pdf
+    ├── 03_Relatorio_Dominio_e_Hospedagem.pdf
+    ├── 04_Diario_de_Bordo.pdf
+    └── (os mesmos documentos em .md)
 ```
 
 ## Como abrir

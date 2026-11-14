@@ -21,7 +21,7 @@ Todas as páginas têm o mesmo menu no topo e os mesmos links no rodapé, então
 
 | Página | Objetivo | Conteúdo necessário |
 |---|---|---|
-| Início | Apresentar a empresa | Título, "Quem somos", categorias, destaques, chamada para contato |
+| Início (catálogo) | Apresentar a empresa e vender | "Quem somos", categorias, novidades, destaques, busca, carrinho e pedido pelo WhatsApp |
 | Sobre | Contar a história | Texto da história, linha do tempo, valores, foto |
 | Produtos | Mostrar todo o catálogo | Busca, cards com foto, descrição e preço |
 | Queijos / Embutidos / Pães de Queijo / Bebidas | Mostrar cada categoria | Banner, busca, cards |
@@ -31,23 +31,29 @@ Todas as páginas têm o mesmo menu no topo e os mesmos links no rodapé, então
 
 ## 5. Wireframes
 
-### Início
+### Início (catálogo)
 ```
 ┌───────────────────────────────────────────┐
-│ LOGO                         MENU (10)    │  header + nav
+│ LOGO   MENU (páginas)   [ BUSCA ]  [🛒]   │  header + nav + carrinho
 ├───────────────────────────────────────────┤
 │ TÍTULO "Mais que produtos..."             │
 │ QUEM SOMOS (texto)                        │  hero
-│ [Ver produtos] [Nossa história]           │
+│ [Ver catálogo] [Nossa história]           │
 ├───────────────────────────────────────────┤
-│ [CATEG 1] [CATEG 2] [CATEG 3] [CATEG 4]   │  categorias
+│ [CATEG] [CATEG] [CATEG] [CATEG]  →        │  categorias
 ├───────────────────────────────────────────┤
-│ [CARD] [CARD] [CARD] [CARD]               │  destaques
+│ NOVIDADES: faixa que anda sozinha  → → →  │
 ├───────────────────────────────────────────┤
-│ FAIXA "Faça seu pedido"  [Fale conosco]   │
+│ [Todos][Queijos][Embutidos][Pães][Bebidas]│  filtros
+│ [CARD] [CARD] [CARD] [CARD]               │  16 destaques
+│ ...                                       │
+│ VEJA TUDO POR CATEGORIA: [botões]         │
 ├───────────────────────────────────────────┤
-│ FOOTER: sobre | links | atendimento       │
+│ NAVEGUE PELO SITE: links das 10 páginas   │
+│ FOOTER                                    │
 └───────────────────────────────────────────┘
+CARRINHO (abre ao lado): itens, quantidades, total,
+dados de entrega e botão "Enviar pedido pelo WhatsApp"
 ```
 
 ### Página interna (categoria)
