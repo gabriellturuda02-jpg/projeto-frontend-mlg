@@ -10,7 +10,7 @@ Prof. Me. Gabriel Rosa Paz
 | Nome | RGM | GitHub |
 |---|---|---|
 | Felipe Gonçales de Souza Moura | 47897694 | [@felipegoncales05-pixel](https://github.com/felipegoncales05-pixel) |
-| Miguel Marcos da Silva Gonçalves | 47963549 | — |
+| Miguel Marcos da Silva Gonçalves | 47963549 | [@MiguelmarcosDa](https://github.com/MiguelmarcosDa) |
 | Cauã Martins Aziago | 48100170 | [@cauaaziago20-creator](https://github.com/cauaaziago20-creator) |
 | Gabriell dos Santos Turuda Barbosa | 47964901 | [@gabriellturuda02-jpg](https://github.com/gabriellturuda02-jpg) |
 | Maria Clara Farias Coelho | 47968427 | [@mariaclarafarias1806-web](https://github.com/mariaclarafarias1806-web) |
