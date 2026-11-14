@@ -12,14 +12,12 @@ Registre aqui o que o grupo fez em cada encontro: data, quem participou, o que f
 - Primeira versão das 10 páginas a partir do catálogo da Comércio MLG
 - README, planejamento e relatório de domínio e hospedagem
 
-**Próximos passos:**
-- Cada integrante revisar uma página e registrar aqui
-- Definir a divisão de responsabilidades no planejamento
+## 14/11/2026
+**Participantes:** Maria Clara
+**O que foi feito:**
+- Revisei os textos do site: Quem somos, história e descrições dos produtos
 
----Conteúdo
-Textos do site:
-Quem somos, história, descrições dos produtos
-Maria Clara
+
 
 ## __/__/2026
 **Participantes:**
