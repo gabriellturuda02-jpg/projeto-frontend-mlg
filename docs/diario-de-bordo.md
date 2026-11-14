@@ -38,6 +38,11 @@
 - Revisei as cores, fontes e o layout no computador e no celular
 
 ## 14/11/2026
+**Participantes:** Felipe
+**O que foi feito:**
+- Revisei a estrutura HTML das 10 páginas e os links do menu
+
+## 14/11/2026
 **Participantes:** Kayk
 **O que foi feito:**
 - Organizei as fotos dos produtos e o vídeo da galeria
