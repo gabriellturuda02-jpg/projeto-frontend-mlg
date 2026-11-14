@@ -25,7 +25,7 @@ Apresentar a Comércio MLG e seus produtos na internet e facilitar o contato e o
 - Clientes do varejo que compram queijos, frios e bebidas para casa
 - Lojas, mercados, padarias e lanchonetes que revendem os produtos
 
-## Páginas (10)
+## Páginas (11)
 
 | Página | Arquivo | Conteúdo |
 |---|---|---|
@@ -38,7 +38,8 @@ Apresentar a Comércio MLG e seus produtos na internet e facilitar o contato e o
 | Bebidas | `bebidas.html` | Licores e vinhos |
 | Galeria | `galeria.html` | Vídeo e fotos dos produtos |
 | Contato | `contato.html` | Formulário com validação HTML5 |
-| Orçamento | `orcamento.html` | Pesquisa de domínio e hospedagem |
+| Orçamento | `orcamento.html` | Pesquisa de domínio e hospedagem e documentos do trabalho em PDF |
+| Equipe | `equipe.html` | Integrantes e o que cada um desenvolveu |
 
 ## Tecnologias
 
