@@ -18,7 +18,7 @@ Prof. Me. Gabriel Rosa Paz
 
 ## Objetivo
 
-Apresentar a Comércio MLG e seus produtos na internet e facilitar o contato e o pedido de clientes do varejo e de revendedores (lojas, mercados e padarias)
+Apresentar a Comércio MLG e seus produtos na internet e facilitar o contato e o pedido de clientes do varejo e de revendedores (lojas, mercados e padarias).
 
 ## Público-alvo
 
