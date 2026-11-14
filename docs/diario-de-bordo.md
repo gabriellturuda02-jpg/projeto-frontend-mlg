@@ -28,6 +28,7 @@
 **O que foi feito:**
 
 - Utilizamos CSS3 para trabalhar na aparência do site, definindo cores, fontes, tamanhos, espaçamentos e posicionamento dos
+- Revisei o README, o diário de bordo e o relatório de domínio e hospedagem
   ___
 ## 14/11/2026
 
