@@ -106,11 +106,11 @@ dados de entrega e botão "Enviar pedido pelo WhatsApp"
 
 ## 7. Divisão de responsabilidades
 
-| Área | Responsável |
-|---|---|
-| Conteúdo (textos e revisão) | _a definir_ |
-| HTML (estrutura e links) | _a definir_ |
-| CSS (identidade e layout) | _a definir_ |
-| Mídias (imagens e vídeo) | _a definir_ |
-| Docs (README e diário) | _a definir_ |
-| Git (repositório e commits) | Gabriell dos Santos Turuda Barbosa |
+| Área | O que faz | Responsável |
+|---|---|---|
+| Git | Cria o repositório, organiza os commits e publica no GitHub Pages | Gabriell dos Santos Turuda Barbosa |
+| Conteúdo | Textos do site: Quem somos, história e descrições dos produtos | Maria Clara Farias Coelho |
+| HTML | Estrutura das 10 páginas e os links entre elas | Felipe Gonçales de Souza Moura |
+| CSS | Cores, fontes e layout responsivo (computador e celular) | Cauã Martins Aziago |
+| Mídias | Fotos dos produtos e vídeo da galeria | Kayk Alberto Santana Ferreira |
+| Docs | README, diário de bordo e relatório de domínio e hospedagem | Miguel Marcos da Silva Gonçalves |
