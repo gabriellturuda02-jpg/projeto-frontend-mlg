@@ -29,4 +29,10 @@
 
 - Utilizamos CSS3 para trabalhar na aparência do site, definindo cores, fontes, tamanhos, espaçamentos e posicionamento dos
   ___
+## 14/11/2026
 
+**Participantes:** Cauã
+
+**O que foi feito:**
+
+- Revisei as cores, fontes e o layout no computador e no celular
