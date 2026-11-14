@@ -16,7 +16,10 @@ Registre aqui o que o grupo fez em cada encontro: data, quem participou, o que f
 - Cada integrante revisar uma página e registrar aqui
 - Definir a divisão de responsabilidades no planejamento
 
----
+---Conteúdo
+Textos do site:
+Quem somos, história, descrições dos produtos
+Maria Clara
 
 ## __/__/2026
 **Participantes:**
