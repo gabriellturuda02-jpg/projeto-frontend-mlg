@@ -268,3 +268,10 @@ $('ctSend').onclick=async()=>{
 };
 render();fromHash();paintCart();
 })();
+
+// Menu ☰ com todas as páginas do site (telas menores)
+(()=>{const b=document.getElementById('mnuBtn'),m=document.getElementById('mnu');if(!b||!m)return;
+const set=o=>{m.classList.toggle('aberto',o);b.setAttribute('aria-expanded',o);b.textContent=o?'✕':'☰'};
+b.addEventListener('click',e=>{e.stopPropagation();set(!m.classList.contains('aberto'))});
+document.addEventListener('click',e=>{if(!m.contains(e.target))set(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});})();
