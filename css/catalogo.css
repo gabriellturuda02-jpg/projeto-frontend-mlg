@@ -111,6 +111,15 @@
 .gift b{color:var(--gold)}.gift.prog{border-style:dashed;border-color:#5d4a00;color:#bbb}
 /* ---------- carrinho ---------- */
 .addrow{margin-top:10px}
+.ptag.combo{background:#ff6b2c;color:#fff}
+.combo-l{display:inline-block;margin-top:6px;background:#ff6b2c;color:#fff;border-radius:8px;padding:3px 8px;font-size:12px;font-weight:900}
+.nsab{color:var(--gold);font-size:12px;font-weight:800;margin-top:4px}
+.sabs{margin-top:14px;border:1px solid #3a3000;border-radius:14px;max-height:min(46vh,380px);overflow:auto;background:#0d0d0d}
+.sabs h5{position:sticky;top:0;margin:0;padding:10px 14px;background:#141100;color:var(--gold);font-size:11px;letter-spacing:2px;border-bottom:1px solid #3a3000;z-index:1}
+.sab{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px 8px 14px;border-bottom:1px solid #1d1d1d;color:#eee;font-size:14px}
+.sab:last-child{border-bottom:0}.sab.in{background:#1a1500}.sab.in span{color:var(--gold);font-weight:800}
+.sab .stp{width:118px;flex:none}.sab .sab-add{border:1px solid var(--gold);background:transparent;color:var(--gold);border-radius:999px;padding:7px 14px;font-weight:900;font-size:12px;cursor:pointer;flex:none}
+.gift.combo{border-color:#ff6b2c;background:#2a1206;color:#ffd9c6}
 .add{width:100%;border:0;border-radius:999px;background:var(--gold);color:#111;font-weight:1000;font-size:12px;padding:10px 12px;cursor:pointer;letter-spacing:.5px}
 .add:hover{background:#fff}
 .stp{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--gold);border-radius:999px;overflow:hidden}
@@ -141,7 +150,7 @@
 .ct-empty h3{font:28px Georgia,serif;color:#fff;margin:0 0 8px}
 .cform{display:grid;gap:10px;margin-top:18px}
 .cform label{font-size:11px;font-weight:1000;letter-spacing:1.5px;color:var(--gold);display:grid;gap:5px}
-.cform input,.cform textarea{border:1px solid #5d4a00;background:#151515;color:#fff;border-radius:12px;padding:11px 12px;font:15px Arial,sans-serif;outline:0;resize:vertical}
+.cform label{min-width:0}.cform input,.cform textarea{width:100%;min-width:0;box-sizing:border-box;border:1px solid #5d4a00;background:#151515;color:#fff;border-radius:12px;padding:11px 12px;font:15px Arial,sans-serif;outline:0;resize:vertical}
 .cform input:focus,.cform textarea:focus{border-color:var(--gold)}
 .cform .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ct-foot{padding:14px 20px 18px;border-top:1px solid #3a2f00;background:#101010;display:grid;gap:8px}

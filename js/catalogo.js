@@ -5,6 +5,10 @@ const D=window.MLG,$=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 const CATS=D.categorias,ALL=D.produtos;
+ALL.forEach(p=>{if(p.sabores)p.kw=(p.kw||'')+' sabores '+p.sabores.join(' ')});
+const KS='~',kp=k=>{const i=k.indexOf(KS);return i<0?[k,'']:[k.slice(0,i),k.slice(i+1)]},PK=k=>ALL.find(x=>x.id===kp(k)[0]);
+function qtyOf(id){let n=0;for(const[k,q]of Object.entries(cart))if(kp(k)[0]===id)n+=q;return n}
+function comboTxt(p){return p.combo?`${p.combo.q} por ${brl(p.combo.preco)}`:''}
 const cat=id=>CATS.find(c=>c.id===id)||{nome:'',img:''};
 const img=p=>p.img||cat(p.cat).img;
 const brl=v=>'R$ '+v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.');
@@ -34,9 +38,9 @@ let cur='',q='';
 $('chips').innerHTML=`<button class="chip on" data-cat="">TODOS (${ALL.length})</button>`+CATS.map(c=>`<button class="chip" data-cat="${esc(c.id)}">${esc(c.nome)} (${ALL.filter(p=>p.cat===c.id).length})</button>`).join('');
 $('chips').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(b){$('topSearch').value='';q='';pick(b.dataset.cat,false)}});
 const hay=p=>norm([p.nome,p.desc,p.emb,p.kw,p.cod,cat(p.cat).nome].join(' '));
-function card(p){return `<article class="prod${p.falta?' falta':''}" data-open="${esc(p.id)}" tabindex="0"><div class="prod-photo" style="--img:url('${esc(abs(img(p)))}')"><img src="${esc(img(p))}" alt="${esc(p.nome)}" loading="lazy" decoding="async"><span class="ptags">${p.falta?'<span class="ptag out">EM FALTA</span>':''}${!p.falta&&temPromo(p)?'<span class="ptag promo">🎁 PROMO</span>':''}${p.novo?'<span class="ptag new">NOVIDADE</span>':''}${p.ex?'<span class="ptag ex">EXEMPLO</span>':''}</span></div><div class="prod-copy"><small>${esc(cat(p.cat).nome)}</small><h4>${esc(p.nome)}</h4>${p.emb?`<div class="pk">${esc(p.emb)}</div>`:''}<div class="price ${p.preco!=null?'':'ask'}"><b>${p.preco!=null?brl(p.preco):'Preço sob consulta'}</b><span>${p.preco!=null?esc(unit(p.unid)):''}</span></div>${CART?`<div class="addrow">${addCtl(p.id)}</div>`:''}</div></article>`}
+function card(p){return `<article class="prod${p.falta?' falta':''}" data-open="${esc(p.id)}" tabindex="0"><div class="prod-photo" style="--img:url('${esc(abs(img(p)))}')"><img src="${esc(img(p))}" alt="${esc(p.nome)}" loading="lazy" decoding="async"><span class="ptags">${p.falta?'<span class="ptag out">EM FALTA</span>':''}${!p.falta&&temPromo(p)?'<span class="ptag promo">🎁 PROMO</span>':''}${!p.falta&&p.combo?`<span class="ptag combo">🔥 ${esc(comboTxt(p).toUpperCase())}</span>`:''}${p.novo?'<span class="ptag new">NOVIDADE</span>':''}${p.ex?'<span class="ptag ex">EXEMPLO</span>':''}</span></div><div class="prod-copy"><small>${esc(cat(p.cat).nome)}</small><h4>${esc(p.nome)}</h4>${p.emb?`<div class="pk">${esc(p.emb)}</div>`:''}${p.sabores&&!p.falta?`<div class="nsab">${p.sabores.length} ${p.sabores.length>1?'sabores':'sabor'}</div>`:''}${p.combo&&!p.falta?`<div><span class="combo-l">🔥 Promoção: ${esc(comboTxt(p))}</span></div>`:''}<div class="price ${p.preco!=null?'':'ask'}"><b>${p.preco!=null?brl(p.preco):'Preço sob consulta'}</b><span>${p.preco!=null?esc(unit(p.unid)):''}</span></div>${CART?`<div class="addrow">${addCtl(p.id)}</div>`:''}</div></article>`}
 function table(list,grouped){
-  const row=p=>`<tr class="row" data-open="${esc(p.id)}" tabindex="0"><td class="cod">${esc(p.cod||'')}</td><td>${esc(p.nome)}${p.emb?`<small class="em">${esc(p.emb)}</small>`:""}${p.falta?'<span class="tg ex" style="background:#5a1f1f;color:#ffd0d0">EM FALTA</span>':''}${!p.falta&&temPromo(p)?'<span class="tg" style="background:#ff6b2c;color:#fff">🎁 PROMO</span>':''}${p.novo?'<span class="tg">NOVO</span>':''}${p.ex?'<span class="tg ex">EXEMPLO</span>':''}</td><td>${esc(p.emb||'')}</td><td class="num">${p.preco!=null?brl(p.preco)+esc(unit(p.unid)):'Sob consulta'}</td>${CART?`<td class="addc">${p.falta?'<button class="mini-add off" disabled>Em falta</button>':`<button class="mini-add ${cart[p.id]?'in':''}" data-add="${esc(p.id)}">${cart[p.id]?'✓ '+cart[p.id]:'+ Pedir'}</button>`}</td>`:''}</tr>`;
+  const row=p=>`<tr class="row" data-open="${esc(p.id)}" tabindex="0"><td class="cod">${esc(p.cod||'')}</td><td>${esc(p.nome)}${p.emb?`<small class="em">${esc(p.emb)}</small>`:""}${p.falta?'<span class="tg ex" style="background:#5a1f1f;color:#ffd0d0">EM FALTA</span>':''}${!p.falta&&temPromo(p)?'<span class="tg" style="background:#ff6b2c;color:#fff">🎁 PROMO</span>':''}${p.novo?'<span class="tg">NOVO</span>':''}${p.ex?'<span class="tg ex">EXEMPLO</span>':''}</td><td>${esc(p.emb||'')}</td><td class="num">${p.preco!=null?brl(p.preco)+esc(unit(p.unid)):'Sob consulta'}</td>${CART?`<td class="addc">${p.falta?'<button class="mini-add off" disabled>Em falta</button>':p.sabores?`<button class="mini-add ${qtyOf(p.id)?'in':''}" data-pick="${esc(p.id)}">${qtyOf(p.id)?'✓ '+qtyOf(p.id):'Sabores'}</button>`:`<button class="mini-add ${cart[p.id]?'in':''}" data-add="${esc(p.id)}">${cart[p.id]?'✓ '+cart[p.id]:'+ Pedir'}</button>`}</td>`:''}</tr>`;
   let body='';
   if(grouped)CATS.forEach(c=>{const l=list.filter(p=>p.cat===c.id);if(l.length)body+=`<tr class="cat-row"><td colspan="${CART?5:4}">${esc(c.nome)}</td></tr>`+l.map(row).join('')});
   else body=list.map(row).join('');
@@ -74,7 +78,7 @@ if(view==='list'){$('vList').classList.add('on');$('vCards').classList.remove('o
 if(D.pdf){$('pdfBtn').href=D.pdf;$('pdfBtn').hidden=false}
 if(PROMOS.length){$('promos').hidden=false;$('promos').innerHTML=PROMOS.map(pr=>`<div class="promo"><span class="ic">🎁</span><div><b>${esc(pr.titulo)}</b><small>${esc(pr.descricao||('Ganhe: '+pr.brinde))}</small></div></div>`).join('')}
 // itens em falta não ficam no carrinho
-Object.keys(cart).forEach(id=>{const pp=ALL.find(x=>x.id===id);if(!pp||pp.falta)delete cart[id]});
+Object.keys(cart).forEach(k=>{const pp=PK(k),sb=kp(k)[1];if(!pp||pp.falta||(pp.sabores?!pp.sabores.includes(sb):!!sb))delete cart[k]});
 if(D.aviso){$('notice').textContent=D.aviso;$('notice').hidden=false}
 $('pDate').textContent='Tabela atualizada em '+D.gerado_em+'.';
 
@@ -89,7 +93,10 @@ if(novs.length){
 
 /* ---------- detalhe ---------- */
 let open=null;
-function openP(id,keep){const p=ALL.find(x=>x.id===id);if(!p)return;open=p;navList=keep?navList:(shown.some(x=>x.id===id)?shown:ALL);$('pPrev').hidden=$('pNext').hidden=navList.length<2;setHash('produto-'+p.id);$('mPh').style.setProperty('--img',`url('${abs(img(p))}')`);$('mCat').textContent=cat(p.cat).nome+(p.novo?' • NOVIDADE':'')+(p.ex?' • EXEMPLO':'');$('mName').textContent=p.nome;$('mDesc').textContent=p.desc||'';$('mPack').textContent=p.emb||'—';$('mPrice').innerHTML=p.preco!=null?`<span class="big">${brl(p.preco)}</span> ${esc(unit(p.unid))}`:'Sob consulta';$('mCode').textContent=p.cod||'—';$('mQty').value=cart[p.id]||1;$('mAdd').textContent=cart[p.id]?'✓ ATUALIZAR PEDIDO':'+ ADICIONAR AO PEDIDO';$('mCartRow').style.display=CART&&!p.falta?'flex':'none';if(p.falta)$('mDesc').textContent=(p.desc?p.desc+' ':'')+'⚠ Produto em falta no momento.';$('pmodal').classList.add('on');document.body.style.overflow='hidden'}
+function openP(id,keep){const p=ALL.find(x=>x.id===id);if(!p)return;open=p;navList=keep?navList:(shown.some(x=>x.id===id)?shown:ALL);$('pPrev').hidden=$('pNext').hidden=navList.length<2;setHash('produto-'+p.id);$('mPh').style.setProperty('--img',`url('${abs(img(p))}')`);$('mCat').textContent=cat(p.cat).nome+(p.novo?' • NOVIDADE':'')+(p.ex?' • EXEMPLO':'');$('mName').textContent=p.nome;$('mDesc').textContent=p.desc||'';$('mPack').textContent=p.emb||'—';$('mPrice').innerHTML=p.preco!=null?`<span class="big">${brl(p.preco)}</span> ${esc(unit(p.unid))}`:'Sob consulta';$('mCode').textContent=p.cod||'—';$('mQty').value=cart[p.id]||1;$('mAdd').textContent=cart[p.id]?'✓ ATUALIZAR PEDIDO':'+ ADICIONAR AO PEDIDO';$('mCartRow').style.display=CART&&!p.falta&&!p.sabores?'flex':'none';if(p.combo&&p.preco!=null)$('mPrice').innerHTML+=`<br><span class="combo-l">🔥 Promoção: ${esc(comboTxt(p))}</span>`;paintSab();if(p.falta)$('mDesc').textContent=(p.desc?p.desc+' ':'')+'⚠ Produto em falta no momento.';$('pmodal').classList.add('on');document.body.style.overflow='hidden'}
+function paintSab(){const p=open,el=$('mSab');if(!el)return;if(!p||!p.sabores||p.falta||!CART){el.hidden=true;el.innerHTML='';return}
+  el.hidden=false;el.innerHTML=`<div class="sabs"><h5>ESCOLHA OS SABORES E AS QUANTIDADES</h5>${p.sabores.map(sb=>{const k=p.id+KS+sb,q=cart[k]||0;return `<div class="sab ${q?'in':''}"><span>${esc(sb)}</span>${q?`<div class="stp" data-stp="${esc(k)}"><button type="button" data-d="-1" aria-label="Menos">−</button><input type="number" min="0" value="${q}" inputmode="numeric" aria-label="Quantidade de ${esc(sb)}"><button type="button" data-d="1" aria-label="Mais">+</button></div>`:`<button type="button" class="sab-add" data-add="${esc(k)}">+ ADICIONAR</button>`}</div>`}).join('')}</div>`}
+$('mSab').addEventListener('click',e=>{if(cartClick(e))e.preventDefault()});
 function closeP(){$('pmodal').classList.remove('on');setHash(cur);if(!$('chat').classList.contains('on')||innerWidth>600)document.body.style.overflow='';open=null}
 $('pmodal').addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeP()});
 let navList=ALL;
@@ -192,31 +199,38 @@ function fromHash(){const h=decodeURIComponent(location.hash.slice(1));if(h.star
 addEventListener('hashchange',fromHash);
 
 /* ============ CARRINHO / PEDIDO ============ */
-function addCtl(id){const pp=ALL.find(x=>x.id===id);if(pp&&pp.falta)return '<button class="add off" disabled>EM FALTA NO MOMENTO</button>';const q=cart[id];return q?`<div class="stp" data-stp="${esc(id)}"><button type="button" data-d="-1">−</button><input type="number" min="0" value="${q}" inputmode="numeric" aria-label="Quantidade"><button type="button" data-d="1">+</button></div>`:`<button class="add" data-add="${esc(id)}">+ ADICIONAR</button>`}
+function addCtl(id){const pp=ALL.find(x=>x.id===id);if(pp&&pp.falta)return '<button class="add off" disabled>EM FALTA NO MOMENTO</button>';if(pp&&pp.sabores){const n=qtyOf(id);return `<button class="add" data-pick="${esc(id)}">${n?'✓ '+n+' NO PEDIDO • VER SABORES':'+ ESCOLHER SABOR'}</button>`}const q=cart[id];return q?`<div class="stp" data-stp="${esc(id)}"><button type="button" data-d="-1">−</button><input type="number" min="0" value="${q}" inputmode="numeric" aria-label="Quantidade"><button type="button" data-d="1">+</button></div>`:`<button class="add" data-add="${esc(id)}">+ ADICIONAR</button>`}
 function cartClick(e){
+  const pk=e.target.closest('[data-pick]');if(pk){e.stopPropagation();openP(pk.dataset.pick);return true}
   const a=e.target.closest('[data-add]');if(a){e.stopPropagation();setQ(a.dataset.add,(cart[a.dataset.add]||0)+1);return true}
   const st=e.target.closest('[data-stp]');if(st){e.stopPropagation();const b=e.target.closest('button[data-d]');if(b)setQ(st.dataset.stp,(cart[st.dataset.stp]||0)+(+b.dataset.d));return true}
   return false}
 document.addEventListener('change',e=>{const st=e.target.closest('[data-stp]');if(st&&e.target.tagName==='INPUT')setQ(st.dataset.stp,parseInt(e.target.value,10)||0)});
-function setQ(id,q){const pf=ALL.find(x=>x.id===id);if(pf&&pf.falta&&q>0){flash('Este produto está em falta no momento.');return}q=Math.max(0,Math.min(9999,q|0));if(q)cart[id]=q;else delete cart[id];saveCart();paintCart();
-  document.querySelectorAll(`.addrow`).forEach(el=>{const art=el.closest('[data-open]');if(art&&art.dataset.open===id)el.innerHTML=addCtl(id)});
-  document.querySelectorAll(`.mini-add[data-add="${CSS.escape(id)}"]`).forEach(b=>{b.classList.toggle('in',!!cart[id]);b.textContent=cart[id]?'✓ '+cart[id]:'+ Pedir'})}
+function setQ(id,q){const pf=PK(id);if(pf&&pf.falta&&q>0){flash('Este produto está em falta no momento.');return}q=Math.max(0,Math.min(9999,q|0));if(q)cart[id]=q;else delete cart[id];saveCart();paintCart();
+  const pid=kp(id)[0];if(open&&open.id===pid)paintSab();
+  document.querySelectorAll(`.addrow`).forEach(el=>{const art=el.closest('[data-open]');if(art&&art.dataset.open===pid)el.innerHTML=addCtl(pid)});
+  document.querySelectorAll(`.mini-add[data-add="${CSS.escape(id)}"]`).forEach(b=>{b.classList.toggle('in',!!cart[id]);b.textContent=cart[id]?'✓ '+cart[id]:'+ Pedir'});
+  document.querySelectorAll(`.mini-add[data-pick="${CSS.escape(pid)}"]`).forEach(b=>{const n=qtyOf(pid);b.classList.toggle('in',!!n);b.textContent=n?'✓ '+n:'Sabores'})}
 function saveCart(){try{localStorage.setItem(CK,JSON.stringify(cart))}catch(e){}}
 function contaPromo(pr,p){return pr.produtos&&pr.produtos.length?pr.produtos.includes(p.id):pr.categoria?p.cat===pr.categoria:true}
 function temPromo(p){return PROMOS.some(pr=>(pr.produtos&&pr.produtos.length)||pr.categoria?contaPromo(pr,p):false)}
-function brindes(){return PROMOS.map(pr=>{let n=0;for(const[id,q]of Object.entries(cart)){const p=ALL.find(x=>x.id===id);if(p&&!p.falta&&contaPromo(pr,p))n+=q}
+function brindes(){return PROMOS.map(pr=>{let n=0;for(const[id,q]of Object.entries(cart)){const p=PK(id);if(p&&!p.falta&&contaPromo(pr,p))n+=q}
   return{pr,n,ganhou:n>=pr.minimo?(pr.repetir?Math.floor(n/pr.minimo):1):0}})}
-function totals(){let t=0,n=0,ask=0,kg=false;for(const[id,q]of Object.entries(cart)){const p=ALL.find(x=>x.id===id);if(!p)continue;n+=q;if(p.preco==null)ask++;else t+=p.preco*q;if(p.unid==='kg')kg=true}return{t,n,ask,kg}}
+function combos(){const g={};for(const[k,q]of Object.entries(cart)){const p=PK(k);if(!p||!p.combo||p.falta||p.preco==null)continue;(g[p.id]=g[p.id]||{p,q:0}).q+=q}
+  return Object.values(g).map(({p,q})=>{const n=p.combo.q,v=Math.round(Math.floor(q/n)*(n*p.preco-p.combo.preco)*100)/100;return{p,q,falta:(n-q%n)%n,valor:v>0?v:0}})}
+function totals(){let t=0,n=0,ask=0,kg=false;for(const[id,q]of Object.entries(cart)){const p=PK(id);if(!p)continue;n+=q;if(p.preco==null)ask++;else t+=p.preco*q;if(p.unid==='kg')kg=true}
+  combos().forEach(c=>t-=c.valor);return{t,n,ask,kg}}
 function paintCart(){
-  const ids=Object.keys(cart).filter(id=>ALL.some(p=>p.id===id)),T=totals();
+  const ids=Object.keys(cart).filter(id=>PK(id)),T=totals();
   $('cartFab').hidden=!CART||!ids.length||$('cart').classList.contains('on');$('cartN').textContent=T.n;$('cartT').textContent=T.t?'• '+brl(T.t):'';
   if(!$('ctItems'))return;
   $('ctSub').textContent=ids.length?plural(ids.length,'produto','produtos')+' • '+plural(T.n,'item','itens'):'';
-  $('ctItems').innerHTML=ids.map(id=>{const p=ALL.find(x=>x.id===id),q=cart[id];return `<div class="ci"><img src="${esc(img(p))}" alt=""><div><b>${esc(p.nome)}</b><small>${esc(p.emb||'')}${p.preco!=null?' • '+brl(p.preco)+esc(unit(p.unid)):''}</small><div class="sub">${p.preco!=null?brl(p.preco*q):'Sob consulta'}</div></div><div class="stp" data-stp="${esc(id)}"><button type="button" data-d="-1" aria-label="Menos">−</button><input type="number" min="0" value="${q}" inputmode="numeric" aria-label="Quantidade"><button type="button" data-d="1" aria-label="Mais">+</button></div></div>`}).join('');
+  $('ctItems').innerHTML=ids.map(id=>{const p=PK(id),sb=kp(id)[1],q=cart[id];return `<div class="ci"><img src="${esc(img(p))}" alt=""><div><b>${esc(p.nome)}</b>${sb?`<small style="color:var(--gold);font-weight:800">Sabor: ${esc(sb)}</small>`:''}<small>${esc(p.emb||'')}${p.preco!=null?' • '+brl(p.preco)+esc(unit(p.unid)):''}</small><div class="sub">${p.preco!=null?brl(p.preco*q):'Sob consulta'}</div></div><div class="stp" data-stp="${esc(id)}"><button type="button" data-d="-1" aria-label="Menos">−</button><input type="number" min="0" value="${q}" inputmode="numeric" aria-label="Quantidade"><button type="button" data-d="1" aria-label="Mais">+</button></div></div>`}).join('');
   $('ctEmpty').hidden=!!ids.length;$('ctForm').hidden=!ids.length;$('ctFoot').hidden=!ids.length;
   $('ctTot').textContent=brl(T.t);$('ctTotLbl').textContent=T.ask?'Total estimado (+ itens sob consulta)':'Total estimado';
   const B=brindes();let gh=B.filter(b=>b.ganhou).map(b=>`<div class="gift">🎁 <b>Você ganhou: ${b.ganhou>1?b.ganhou+"x ":""}${esc(b.pr.brinde)}</b><br>${esc(b.pr.titulo)}</div>`).join('');
   gh+=B.filter(b=>!b.ganhou&&b.n>0).map(b=>`<div class="gift prog">Faltam <b style="color:#fff">${b.pr.minimo-b.n}</b> para ganhar: ${esc(b.pr.brinde)} <small>(${esc(b.pr.titulo)})</small></div>`).join('');
+  gh=combos().map(c=>c.valor?`<div class="gift combo">🔥 <b>Promoção ${esc(c.p.nome)}: ${esc(comboTxt(c.p))}</b><br>Desconto de ${brl(c.valor)}${c.falta?` • leve mais ${c.falta} para aproveitar de novo`:''}</div>`:`<div class="gift combo prog">🔥 Leve mais <b>${c.falta}</b> de ${esc(c.p.nome)} e pague ${esc(comboTxt(c.p))}</div>`).join('')+gh;
   let gEl=$('ctGifts');if(!gEl){gEl=document.createElement('div');gEl.id='ctGifts';$('ctItems').after(gEl)}gEl.innerHTML=gh;
   $('ctNote').textContent=(T.kg?'Itens vendidos por kg: o valor final segue o peso da peça. ':'')+'Valores e disponibilidade confirmados no atendimento.';
 }
@@ -234,7 +248,8 @@ function saveClient(){try{const c={};['cNome','cEnd','cTel','cCid'].forEach(k=>c
 if(V){fetch(new URL('../api/vendedor/'+encodeURIComponent(V),location.href)).then(r=>r.ok?r.json():null).then(j=>{
  if(j&&j.expirado){if(j.bloquear){linkExpirado()}else{V='';try{localStorage.removeItem('mlg-vend-'+D.pasta)}catch(e){}}return}
  if(j&&j.nome){sellerName=j.nome;$('ctSeller').innerHTML='Seu pedido vai para <b>'+esc(j.nome)+'</b>, seu vendedor MLG.';$('ctSeller').hidden=false}}).catch(()=>{})}
-function localText(){const c=client();const T=totals();const L=[`*NOVO PEDIDO* — ${D.empresa}`,''];for(const[id,q]of Object.entries(cart)){const p=ALL.find(x=>x.id===id);if(!p)continue;L.push(`• ${q}x ${p.nome}${p.emb?' ('+p.emb+')':''} — ${p.preco!=null?brl(p.preco)+(p.unid?'/'+p.unid:'')+' = '+brl(p.preco*q):'sob consulta'}`)}
+function localText(){const c=client();const T=totals();const L=[`*NOVO PEDIDO* — ${D.empresa}`,''];for(const[id,q]of Object.entries(cart)){const p=PK(id),sb=kp(id)[1];if(!p)continue;L.push(`• ${q}x ${p.nome}${sb?' — '+sb:''}${p.emb?' ('+p.emb+')':''} — ${p.preco!=null?brl(p.preco)+(p.unid?'/'+p.unid:'')+' = '+brl(p.preco*q):'sob consulta'}`)}
+  combos().filter(c=>c.valor).forEach(c=>L.push(`🔥 Promoção ${c.p.nome}: ${comboTxt(c.p)}: − ${brl(c.valor)}`));
   brindes().filter(b=>b.ganhou).forEach(b=>L.push(`🎁 Brinde: ${b.ganhou>1?b.ganhou+'x ':''}${b.pr.brinde} (${b.pr.titulo})`));
   L.push('',`*Total estimado: ${brl(T.t)}*`+(T.ask?' + itens sob consulta':''));if(T.kg)L.push('_Itens por kg: valor final conforme o peso._');L.push('',`*Cliente:* ${c.nome}`);[['Endereço',c.endereco],['Bairro/cidade',c.cidade],['Telefone',c.telefone],['Observação',c.obs]].forEach(([k,v])=>{if(v)L.push(`*${k}:* ${v}`)});if(sellerName)L.push('',`Vendedor: ${sellerName}`);return L.join('\n')}
 function linkExpirado(){const d=document.createElement('div');d.id='expirado';d.style.cssText='position:fixed;inset:0;z-index:500;background:#080808f2;display:grid;place-items:center;padding:24px;text-align:center';
@@ -252,11 +267,11 @@ $('ctSend').onclick=async()=>{
   saveClient();$('ctSend').disabled=true;$('ctSend').textContent='Enviando…';
   const win=window.open('','_blank');   // abre já no clique (evita bloqueio de pop-up)
   let numero=null,num=D.whatsapp||'',texto=null,dest='';
-  try{const r=await fetch(new URL('../api/pedido',location.href),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pasta:D.pasta,vendedor:V||'',itens:Object.entries(cart).map(([id,qtd])=>({id,qtd})),cliente:c})});
+  try{const r=await fetch(new URL('../api/pedido',location.href),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pasta:D.pasta,vendedor:V||'',itens:Object.entries(cart).map(([k,qtd])=>({id:kp(k)[0],sabor:kp(k)[1],qtd,k})),cliente:c})});
     const j=await r.json().catch(()=>null);
     if(j&&j.texto){numero=j.numero;texto=j.texto;num=j.whatsapp||num;dest=j.destino||''}
     else if(j&&j.expirado){if(win)win.close();closeCart();linkExpirado();return}
-    else if(j&&j.em_falta){if(win)win.close();j.em_falta.forEach(id=>{const pp=ALL.find(x=>x.id===id);if(pp)pp.falta=true;delete cart[id]});saveCart();render();paintCart();$('cErr').textContent=j.erro+'. Tiramos do seu pedido; confira e envie de novo.';$('cErr').hidden=false;$('ctSend').disabled=false;$('ctSend').textContent='💬 ENVIAR PEDIDO PELO WHATSAPP';return}
+    else if(j&&j.em_falta){if(win)win.close();j.em_falta.forEach(id=>{const pp=PK(id),sb=kp(id)[1];if(pp){if(sb&&pp.sabores){pp.sabores=pp.sabores.filter(x=>x!==sb);if(!pp.sabores.length)pp.falta=true}else pp.falta=true}delete cart[id]});saveCart();render();paintCart();$('cErr').textContent=j.erro+'. Tiramos do seu pedido; confira e envie de novo.';$('cErr').hidden=false;$('ctSend').disabled=false;$('ctSend').textContent='💬 ENVIAR PEDIDO PELO WHATSAPP';return}
     else if(j&&j.erro&&r.status===400){if(win)win.close();$('cErr').textContent=j.erro;$('cErr').hidden=false;$('ctSend').disabled=false;$('ctSend').textContent='💬 ENVIAR PEDIDO PELO WHATSAPP';return}
   }catch(e){}
   if(!texto)texto=localText();
